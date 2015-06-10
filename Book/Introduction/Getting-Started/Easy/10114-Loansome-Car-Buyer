@@ -13,7 +13,7 @@ class Main {
 		//}
 		
 		int months = scn.nextInt();
-		while (months>=0) {
+		while (months>0) {
 			double downpayment = scn.nextDouble();
 			double loan = scn.nextDouble();
 			double totalcarsworth = loan + downpayment;
