@@ -1,0 +1,47 @@
+import java.io.*;
+import java.util.*;
+import java.math.*;
+import java.text.*;
+import java.lang.*;
+
+class Main {
+	public static void main(String[] args) {
+		Scanner scn = new Scanner(System.in);
+		int hh = scn.nextInt();
+		while (hh>0) {
+			int vv = scn.nextInt();
+			int nn = scn.nextInt();
+			int dd = scn.nextInt();
+			int day = 0;
+			
+			dd=(dd)*(-1)*(vv);
+			
+			BigDecimal v = new BigDecimal(vv);
+			BigDecimal d = new BigDecimal(dd);
+			BigDecimal h = new BigDecimal(0);
+			BigDecimal hhh= new BigDecimal(hh);
+			BigDecimal n = new BigDecimal(nn);
+			
+			d = d.multiply((new BigDecimal("0.01")));
+			
+			
+			boolean isout = false;
+			boolean firstday =true;
+			while ((h.compareTo(BigDecimal.ZERO)>=0&&(!isout))||firstday) {
+				day++;
+				firstday=false;
+				h=h.add(v);
+				if (h.compareTo(hhh)>0) {
+					isout=true;
+					System.out.println("success on day "+day);
+				}
+				h=h.subtract(n);
+				v=v.add(d);
+			}
+			if (!isout) {
+				System.out.println("failure on day "+day);
+			}
+			hh = scn.nextInt();
+		}
+	}
+}
