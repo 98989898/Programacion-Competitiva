@@ -1,3 +1,47 @@
+//ACCEPTED BY UVA
+import java.io.*;
+import java.util.*;
+import java.math.*;
+import java.text.*;
+import java.lang.*;
+
+class Main {
+	public static void main(String[] args) {
+		Scanner scn = new Scanner(System.in);
+		int hh = scn.nextInt();
+		while (hh>0) {
+			int vv = scn.nextInt();
+			double v=vv;
+			int n = scn.nextInt();
+			int dd = scn.nextInt();
+			double d = (dd)*(-1)*(vv)*0.01;
+			double h = 0;
+			int day = 0;
+			boolean isout = false;
+			boolean firstday =true;
+			while ((h>=0&&(!isout))||firstday) {
+				day++;
+				firstday=false;
+				h=h+v;
+				if (h>hh) {
+					isout=true;
+					System.out.println("success on day "+day);
+				}
+				h=h-n;
+				v=v+d;
+				if (v<0) {
+					v=0;
+				}
+			}
+			if (!isout) {
+				System.out.println("failure on day "+day);
+			}
+			hh = scn.nextInt();
+		}
+	}
+}
+
+/* TO SOLVE ADDING DOUBLE PROBLEM, BUT NOT NEEDED.
 import java.io.*;
 import java.util.*;
 import java.math.*;
@@ -45,3 +89,4 @@ class Main {
 		}
 	}
 }
+*/
