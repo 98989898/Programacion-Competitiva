@@ -1,0 +1,59 @@
+//ACCEPTED BY UVA
+import java.io.*;
+import java.util.*;
+import java.math.*;
+import java.text.*;
+import java.lang.*;
+
+class Main {
+	public static void main(String[] args) {
+		Scanner scn = new Scanner(System.in);
+		int a = scn.nextInt();
+		boolean first = true;
+		int num = 0;
+		while (a>0) {
+			num++;
+			int b = scn.nextInt();
+			for (int i=0;i<=a;i++) {
+				String print = scn.nextLine();
+			}
+
+			String bestname = scn.nextLine();
+			float bestprice = scn.nextFloat();
+			int best = scn.nextInt();
+			int k = best;
+			for (int j=0;j<=k;j++) {
+								scn.nextLine();
+							}
+			for (int i=1;i<b;i++) {
+				String curname = scn.nextLine();
+				float curprice = scn.nextFloat();
+				int curproposal = scn.nextInt();
+				k=curproposal;
+				if (curproposal==best) {
+					if (curprice<bestprice) {
+						bestname = curname;
+						bestprice = curprice;
+						best = curproposal;
+					}
+				}
+				if (curproposal>best) {
+					bestname = curname;
+					bestprice = curprice;
+					best = curproposal;
+				}
+				for (int j=0;j<=k;j++) {
+					scn.nextLine();
+				}
+			}
+			if (!first) {
+				System.out.println();
+			}
+			first = false;
+			System.out.println("RFP #"+num);
+			System.out.println(bestname);
+			
+			a = scn.nextInt();
+		}
+	}
+}
