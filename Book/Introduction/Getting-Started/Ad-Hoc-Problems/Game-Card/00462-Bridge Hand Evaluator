@@ -1,0 +1,197 @@
+
+//NOT ACCEPTED BY UVA
+import java.io.*;
+import java.util.*;
+import java.math.*;
+import java.text.*;
+import java.lang.*;
+
+class Main {
+	public static void main(String[] args) {
+		Scanner scn = new Scanner(System.in);
+		while (scn.hasNextLine()) {
+			String hand = scn.nextLine();
+			String[] hands = hand.split(" ");
+			int s=0,h=0,c=0,d=0,points=0,pointswithout;
+			boolean ks=false,kh=false,kc=false,kd=false,as=false,ah=false,ac=false,ad=false,js=false,jh=false,jc=false,jd=false,qs=false,qh=false,qc=false,qd=false,ss=false,hh=false,cc=false,dd=false;
+			for (int i =0;i<hands.length;i++) {
+				if (hands[i].startsWith("A")) {
+					points += 4;
+					if (hands[i].endsWith("D")) {
+						ad = true;
+						dd = true;
+					}
+					if (hands[i].endsWith("S")) {
+						as = true;
+						ss = true;
+					}
+					if (hands[i].endsWith("H")) {
+						ah = true;
+						hh = true;
+					}
+					if (hands[i].endsWith("C")) {
+						ac = true;
+						cc = true;
+					}
+				}
+				if (hands[i].startsWith("K")) {
+					points += 3;
+					if (hands[i].endsWith("D")) {
+						kd = true;
+					}
+					if (hands[i].endsWith("S")) {
+						ks = true;
+					}
+					if (hands[i].endsWith("H")) {
+						kh = true;
+					}
+					if (hands[i].endsWith("C")) {
+						kc = true;
+					}
+					
+				}
+				if (hands[i].startsWith("Q")) {
+					points += 2;
+					if (hands[i].endsWith("D")) {
+						qd = true;
+					}
+					if (hands[i].endsWith("S")) {
+						qs = true;
+					}
+					if (hands[i].endsWith("H")) {
+						qh = true;
+					}
+					if (hands[i].endsWith("C")) {
+						qc = true;
+					}
+				}
+				if (hands[i].startsWith("J")) {
+					points += 1;
+					if (hands[i].endsWith("D")) {
+						jd = true;
+					}
+					if (hands[i].endsWith("S")) {
+						js = true;
+					}
+					if (hands[i].endsWith("H")) {
+						jh = true;
+					}
+					if (hands[i].endsWith("C")) {
+						jc = true;
+					}
+				}
+				if (hands[i].endsWith("D")) {
+					d++;
+				}
+				if (hands[i].endsWith("S")) {
+					s++;
+				}
+				if (hands[i].endsWith("H")) {
+					h++;
+				}
+				if (hands[i].endsWith("C")) {
+					c++;
+				}
+			}
+			if ((kd&&d==1)) {
+				points = points - 1;
+			} else if(kd) {
+				dd =true;
+			}
+			if ((ks&&s==1)) {
+				points = points - 1;
+			} else if(ks) {
+				ss = true;
+			}
+			if ((kh&&h==1)) {
+				points = points - 1;
+			} else if(kh) {
+				hh = true;
+			}
+			if ((kc&&c==1)) {
+				points = points - 1;
+			} else if(kc) {
+				cc = true;
+			}
+			if ((qd&&d<3)) {
+				points = points -1;
+			} else if(qd) {
+				dd = true;
+			}
+			if ((qs&&s<3)) {
+				points = points -1;
+			} else if(qs) {
+				ss = true;
+			}
+			if ((qh&&h<3)) {
+				points = points -1;
+			} else if(qh) {
+				hh = true;
+			}
+			if ((qc&&c<3)) {
+				points = points -1;
+			} else if(qc) {
+				cc = true;
+			}
+			if ((jd&&d<4)) {
+				points = points -1;
+			}
+			if ((js&&s<4)) {
+				points = points -1;
+			}
+			if ((jh&&h<4)) {
+				points = points -1;
+			}
+			if ((jc&&c<4)) {
+				points = points -1;
+			}
+			pointswithout = points;
+			if (d==0||d==1) {
+				points++;
+				points++;
+			}
+			if (s==0||s==1) {
+				points++;
+				points++;
+			}
+			if (h==0||h==1) {
+				points++;
+				points++;
+			}
+			if (c==0||c==1) {
+				points++;
+				points++;
+			}
+			if (d==2) {
+				points++;
+			}
+			if (s==2) {
+				points++;
+			}
+			if (h==2) {
+				points++;
+			}
+			if (c==2) {
+				points++;
+			}
+			if (points<14) {
+				System.out.println("PASS");
+			} else if (pointswithout>15&&dd&&ss&&hh&&cc) {
+				System.out.println("BID NO-TRUMP");
+			} else {
+				if (s>=d&&s>=h&&s>=c) {
+					System.out.println("BID S");
+				}
+				if (h>s&&h<=d&&h>=c) {
+					System.out.println("BID H");
+				}
+				if (d>s&&d>h&&d>=c) {
+					System.out.println("BID D");
+				}
+				if (c>s&&c>h&&c>d) {
+					System.out.println("BID C");	
+				}
+			}
+		}
+	}
+}
