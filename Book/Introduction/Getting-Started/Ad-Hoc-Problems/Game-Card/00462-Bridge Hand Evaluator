@@ -182,7 +182,7 @@ class Main {
 				if (s>=d&&s>=h&&s>=c) {
 					System.out.println("BID S");
 				}
-				if (h>s&&h<=d&&h>=c) {
+				if (h>s&&h>=d&&h>=c) {
 					System.out.println("BID H");
 				}
 				if (d>s&&d>h&&d>=c) {
