@@ -1,0 +1,16 @@
+import java.io.*;
+import java.util.*;
+import java.math.*;
+import java.text.*;
+import java.lang.*;
+
+class Main {
+	public static void main(String[] args) {
+		Scanner scn = new Scanner(System.in);
+		int testcases = scn.nextInt();
+		while(testcases!=-1) {
+		  
+		  testcases = scn.nextInt();
+		}
+	}
+}
