@@ -17,15 +17,20 @@ class Main {
 		
 		int months = scn.nextInt();
 		while (months>0) {
+			System.out.println("months: "+months);
 			double downpayment = scn.nextDouble();
+			System.out.println("downPayment: "+downpayment);
 			double loan = scn.nextDouble();
+			System.out.println("loan: "+loan);
 			double totalcarsworth = loan + downpayment;
 			double quotas = loan/months;
 			int dataAmount = scn.nextInt()-1;
 			int monthdata = scn.nextInt();
+			System.out.println("monthdata: ");
 			int nextMonthData=-1;
 			boolean nextMonth=false;
 			double depreciation = scn.nextDouble();
+			System.out.println("monthdata depreciation: "+depreciation);
 			double nextMonthDepreciation =-1;
 			totalcarsworth=totalcarsworth*(1-depreciation);
 			boolean end;
@@ -36,13 +41,19 @@ class Main {
 			} else {
 				end=false;
 			}
+			System.out.println("totalcarsworth: "+totalcarsworth);
+			System.out.println("loan: "+loan);
 			for (int month = 1; (month <= months)&&(!end);month++) {
 				if (dataAmount>0) {
 					nextMonthData=scn.nextInt();
+					System.out.println("month data: "+nextMonthData);
 					nextMonthDepreciation=scn.nextDouble();
+					System.out.println("month data depreciation: "+nextMonthDepreciation);
 					nextMonth=true;
 					dataAmount=dataAmount-1;
+					System.out.println("dataAmount: "+dataAmount);
 				}
+				
 				if (nextMonth) {
 					if (month==nextMonthData) {
 						monthdata=nextMonthData;
@@ -58,14 +69,21 @@ class Main {
 						end=true;
 					}
 				}
-				if (end) {
-					if (solution==1) {
-						System.out.println(solution + " month");
-					} else {
-						System.out.println(solution + " months");
-					}
-				}
+				System.out.println("totalcarsworth: "+totalcarsworth);
+				System.out.println("loan: "+loan);
 				
+			}
+			if (end) {
+				if (solution==1) {
+					System.out.println(solution + " month");
+				} else {
+					System.out.println(solution + " months");
+				}
+			}
+			scn.nextLine();
+			while (dataAmount>0) {
+				scn.nextLine();
+				dataAmount--;
 			}
 			months = scn.nextInt();
 		}
