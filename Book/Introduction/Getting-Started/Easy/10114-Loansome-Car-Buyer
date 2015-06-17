@@ -1,5 +1,5 @@
 
-//NOT ACCEPTED BY UVA
+//ACCEPTED BY UVA
 
 import java.io.*;
 import java.util.*;
@@ -17,20 +17,21 @@ class Main {
 		
 		int months = scn.nextInt();
 		while (months>0) {
-			System.out.println("months: "+months);
+			//System.out.println("months: "+months);
 			double downpayment = scn.nextDouble();
-			System.out.println("downPayment: "+downpayment);
+			//System.out.println("downPayment: "+downpayment);
 			double loan = scn.nextDouble();
-			System.out.println("loan: "+loan);
+			//System.out.println("loan: "+loan);
 			double totalcarsworth = loan + downpayment;
+			double initialtotalcarsworth = totalcarsworth;
 			double quotas = loan/months;
 			int dataAmount = scn.nextInt()-1;
 			int monthdata = scn.nextInt();
-			System.out.println("monthdata: ");
+			//System.out.println("monthdata: ");
 			int nextMonthData=-1;
 			boolean nextMonth=false;
 			double depreciation = scn.nextDouble();
-			System.out.println("monthdata depreciation: "+depreciation);
+			//System.out.println("monthdata depreciation: "+depreciation);
 			double nextMonthDepreciation =-1;
 			totalcarsworth=totalcarsworth*(1-depreciation);
 			boolean end;
@@ -41,19 +42,19 @@ class Main {
 			} else {
 				end=false;
 			}
-			System.out.println("totalcarsworth: "+totalcarsworth);
-			System.out.println("loan: "+loan);
+			//System.out.println("totalcarsworth: "+totalcarsworth);
+			//System.out.println("loan: "+loan);
 			for (int month = 1; (month <= months)&&(!end);month++) {
-				if (dataAmount>0) {
+				if ((dataAmount>0)&&(!nextMonth)) {
 					nextMonthData=scn.nextInt();
-					System.out.println("month data: "+nextMonthData);
+					//System.out.println("month data: "+nextMonthData);
 					nextMonthDepreciation=scn.nextDouble();
-					System.out.println("month data depreciation: "+nextMonthDepreciation);
+					//System.out.println("month data depreciation: "+nextMonthDepreciation);
 					nextMonth=true;
 					dataAmount=dataAmount-1;
-					System.out.println("dataAmount: "+dataAmount);
+					//System.out.println("dataAmount: "+dataAmount);
 				}
-				
+				//System.out.println(nextMonth);
 				if (nextMonth) {
 					if (month==nextMonthData) {
 						monthdata=nextMonthData;
@@ -61,6 +62,7 @@ class Main {
 						nextMonth=false;
 					}
 				}
+				//System.out.println("******currmonth:"+month+"currdeprec:"+depreciation);
 				totalcarsworth=totalcarsworth*(1-depreciation);
 				loan=loan-quotas;
 				if (!end) {
@@ -69,8 +71,8 @@ class Main {
 						end=true;
 					}
 				}
-				System.out.println("totalcarsworth: "+totalcarsworth);
-				System.out.println("loan: "+loan);
+				//System.out.println("totalcarsworth: "+totalcarsworth);
+				//System.out.println("loan: "+loan);
 				
 			}
 			if (end) {
