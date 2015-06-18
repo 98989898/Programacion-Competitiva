@@ -1,0 +1,61 @@
+import java.io.*;
+import java.util.*;
+import java.math.*;
+import java.text.*;
+import java.lang.*;
+
+class Main {
+	public static int proccessSpare(char i){
+		if (i=='X') {
+			return 10;
+		} else {
+			return Character.getNumericValue(i);
+		}
+	}
+	public static int processStrike(char i, char j){
+		int sum = 0;
+		if (i=='X') {
+			sum += 10;
+		} else {
+			sum += Character.getNumericValue(i);
+		}
+		if (j=='X') {
+			sum += 10;
+		} else if (j=='/') {
+			return 10;
+		} else {
+			sum += Character.getNumericValue(j);
+		}
+		return sum;
+	}
+	
+	public static void main(String[] args) {
+		Scanner scn = new Scanner(System.in);
+		String testcases = scn.nextLine();
+		while(!testcases.equals("Game Over")) {
+		testcases = testcases.replace(" ","");
+	 	char[] letters = testcases.toCharArray();
+		int pts = 0;
+		int j = 0;
+		for (int i = 0;i<10;i++) {
+			if (letters[j]=='X') {
+				pts += 10;
+				pts += processStrike(letters[j+1],letters[j+2]);
+				j++;
+			} else {
+				if (letters[j+1]=='/') {
+					pts += 10;
+					pts += proccessSpare(letters[j+2]);
+					j += 2;
+				} else {
+					pts += Character.getNumericValue(letters[j]);
+					pts += Character.getNumericValue(letters[j+1]);
+					j +=2;
+				}
+			}
+		}
+		System.out.println(pts);
+		testcases = scn.nextLine();
+		}
+	}
+}
