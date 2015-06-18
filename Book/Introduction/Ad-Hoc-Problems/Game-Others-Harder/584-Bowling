@@ -1,3 +1,7 @@
+
+//NOT ACCEPTED BY UVA
+//TIME LIMIT EXCEEDED...
+
 import java.io.*;
 import java.util.*;
 import java.math.*;
@@ -14,17 +18,17 @@ class Main {
 	}
 	public static int processStrike(char i, char j){
 		int sum = 0;
-		if (i=='X') {
-			sum += 10;
-		} else {
-			sum += Character.getNumericValue(i);
-		}
 		if (j=='X') {
-			sum += 10;
+			return 20;
 		} else if (j=='/') {
 			return 10;
 		} else {
 			sum += Character.getNumericValue(j);
+		}
+		if (i=='X') {
+			sum += 10;
+		} else {
+			sum += Character.getNumericValue(i);
 		}
 		return sum;
 	}
