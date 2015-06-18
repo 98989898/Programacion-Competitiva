@@ -1,0 +1,60 @@
+
+//NOT ACCEPTED BY UVA
+
+import java.io.*;
+import java.util.*;
+import java.math.*;
+import java.text.*;
+import java.lang.*;
+
+class Main {
+	public static boolean isReverse(char original,char reverse){
+		if ((original=='A'&&reverse=='A')||(original=='E'&&reverse=='3')||(original=='3'&&reverse=='E')||(original=='H'&&reverse=='H')||(original=='I'&&reverse=='I')||			(original=='J'&&reverse=='L')||(original=='L'&&reverse=='J')||(original=='M'&&reverse=='M')||(original=='O'&&reverse=='O')||(original=='S'&&reverse=='2')||			(original=='2'&&reverse=='S')||(original=='T'&&reverse=='T')||(original=='U'&&reverse=='U')||(original=='V'&&reverse=='V')||(original=='W'&&reverse=='W')||			(original=='X'&&reverse=='X')||(original=='Y'&&reverse=='Y')||(original=='Z'&&reverse=='5')||(original=='5'&&reverse=='Z')||(original=='1'&&reverse=='1')||			(original=='8'&&reverse=='8')) {
+			return true;
+		}
+		return false;
+	}
+	public static boolean isMiddleReverse(char original){
+		if (original=='A'||original=='H'||original=='I'||original=='M'||original=='O'||original=='T'||original=='U'||original=='V'||original=='W'||			original=='X'||original=='Y'||original=='1'||original=='8') {
+				return true;
+			}
+			return false;
+	}
+	public static void main(String[] args) {
+		Scanner scn = new Scanner(System.in);
+		while(scn.hasNextLine()) {
+			String line = scn.nextLine();
+			boolean isPalindrome = true;
+			boolean isMirror = true;
+			int half;
+			int full = line.length()-1;
+			if (line.length()%2==0) {
+				half = line.length()/2;
+			} else {
+				half = (line.length()-1)/2;
+				if (!isMiddleReverse(line.charAt(half))) {
+					isMirror = false;
+				}
+			}
+			for (int i = 0;i<half&&(isPalindrome||isMirror);i++) {
+				if (line.charAt(i)!=line.charAt(full-i)) {
+					isPalindrome = false;
+				}
+				if (isMirror) {
+					if (!isReverse(line.charAt(i),line.charAt(full-i))) {
+						isMirror = false;
+					}
+				}
+			}
+			if (isPalindrome&&isMirror) {
+				System.out.println(line + " -- is a mirrored palindrome.");
+			} else if (isPalindrome) {
+				System.out.println(line + " -- is a regular palindrome.");
+			} else if (isMirror) {
+				System.out.println(line + " -- is a mirrored string.");
+			} else {
+				System.out.println(line + " -- is not a palindrome.");
+			}
+		}
+	}
+}
