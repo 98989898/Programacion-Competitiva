@@ -20,7 +20,7 @@ class Main {
 		scn.nextLine();
 		while(n!=0&&m!=0) {
 			kz++;
-			System.out.println("Field #"+kz);
+			System.out.println("Field #"+kz+":");
 			String[] board = new String[m];
 			for (int i = 0;i<m;i++) {
 				board[i]=scn.nextLine();
@@ -65,9 +65,13 @@ class Main {
 				}
 				System.out.println();
 			}
-			System.out.println();
+			
 		m = scn.nextInt();
 		n = scn.nextInt();
+		scn.nextLine();
+		if (n != 0 && m != 0){
+			System.out.println();
+		}
 		}
 		
 	}
