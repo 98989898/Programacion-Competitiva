@@ -1,0 +1,33 @@
+import java.io.*;
+import java.util.*;
+import java.math.*;
+import java.text.*;
+import java.lang.*;
+
+class ClockHands {
+	public static void main(String[] args) {
+		Scanner scn = new Scanner(System.in);
+		String lines = scn.nextLine();
+		String[] line = lines.split(":");
+		int hours = Integer.parseInt(line[0]);
+		int minutes = Integer.parseInt(line[1]);
+		double hour = hours*5+minutes*5/60;
+		DecimalFormat df = new DecimalFormat("#.000");
+		while(hour!=0||minutes!=0) {
+			hour = hours*5+5.0/60.0*minutes;
+			double diff = 0;
+			if (hour>minutes) {
+				diff = hour - minutes;
+			} else {
+				diff = minutes-hour;
+			}
+			if (diff>30) {
+				diff=60-diff;
+			}
+			System.out.println(df.format(diff*6));
+			line = scn.nextLine().split(":");
+			hours = Integer.parseInt(line[0]);
+			minutes = Integer.parseInt(line[1]);
+		}
+	}
+}
