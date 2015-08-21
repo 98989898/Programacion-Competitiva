@@ -1,0 +1,101 @@
+
+//NOT ACCEPTED BY JUDGE
+//MADE ESTEBAN DIEGO
+//V1
+
+import java.io.*;
+import java.util.*;
+import java.math.*;
+
+class Main {
+	public static void main(String[] args) throws Exception{
+		BufferedReader br = new BufferedReader (new InputStreamReader(System.in));
+		String line = br.readLine();
+		while (line != null){
+			System.out.println(solve(line));
+			line = br.readLine();
+		}
+	}
+	static boolean isMultipleOf3(String n){
+		boolean solution = false;
+		long sum = 0;
+		for(int i = 0; i < n.length() ; i++)
+		{
+			sum+= Integer.valueOf(n.charAt(i));
+		}
+		if (sum % 3 == 0)
+		{
+			solution = true;
+		}
+		return solution;
+	}
+	static int solve (String line){
+		int solution = 0;
+		
+		String [] numbers = line.split("\\D");
+		
+		for (int i=0; i<numbers.length; i++){
+			for (int j=0; j<numbers[i].length();j++){
+				for (int k=j; k<numbers[i].length(); k++){
+					if (isMultipleOf3(numbers[i].substring(j, k+1))){
+						solution++;
+					}
+				}
+			}
+		}
+		
+		return solution;
+	}
+}
+
+//NOT ACCEPTED BY JUDGE
+//MADE ESTEBAN DIEGO
+//V2
+
+import java.io.*;
+import java.util.*;
+
+class Untitled {
+	public static void main(String[] args) throws Exception{
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		String line = br.readLine();
+		while ((line != null)){
+			line.split(" ");
+			System.out.println(solve(line));
+		}
+	}
+	static int solve (String line){
+		int solution = 0;
+		
+		ArrayList<Integer>numbers = new ArrayList<Integer>();
+		String num = "";
+		for (int i=0; i<line.length(); i++){
+			
+			if(Character.isDigit(line.charAt(i))){
+				num += line.charAt(i);
+				numbers.add(Integer.parseInt(num));
+			}else{
+				num = "";
+			}
+				if (isMultipleOf3(Character.valueOf(line.charAt(i)))){
+					solution++;
+				}
+			
+			
+		}
+		for (int i=0; i<numbers.size(); i++){
+			if (isMultipleOf3(numbers.get(i))){
+				solution++;
+			}
+		}
+		
+		return solution;
+	}
+	static boolean isMultipleOf3(int n){
+		boolean solution = false;
+		if (n%3 == 0){
+			solution = true;
+		}
+		return solution;
+	}
+}
