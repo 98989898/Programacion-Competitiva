@@ -1,0 +1,15 @@
+import java.io.*;
+import java.util.*;
+import java.math.*;
+import java.text.*;
+import java.lang.*;
+
+class Main {
+	public static void main(String[] args) {
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		int testcases = Integer.valueOf(br.readLine());
+		for (int kz = 0; kz < testcases; kz++ ) {
+			
+		}
+	}
+}
