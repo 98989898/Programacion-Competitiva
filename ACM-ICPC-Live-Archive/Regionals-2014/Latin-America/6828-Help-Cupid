@@ -1,0 +1,36 @@
+
+//ACCEPTED BY JUDGE
+//MADE JUAN
+
+import java.io.*;
+import java.util.*;
+
+class Main {
+	public static void main(String[] args) throws Exception {
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		String line = br.readLine();
+		int testcase;
+		while(line != null){
+			testcase = Integer.parseInt(line);
+			String[] input = br.readLine().split(" ");
+			ArrayList<Integer> myArr = new ArrayList<Integer>();
+			for(int i = 0 ; i < input.length; i++){
+				myArr.add(new Integer(input[i]));
+			}
+			Collections.sort(myArr);
+			int count1 = 0;
+			int count2 = 0;
+			for(int i = 0 ; i < (testcase/2); i++){
+				int curr = myArr.get(2*i+1).intValue() - myArr.get(2*i).intValue();
+				if(i<((testcase/2)-1)){
+				int curr2 = myArr.get(2*i+2).intValue() - myArr.get(2*i+1).intValue();
+				if(curr2<(24-curr2)){count2 += curr2;}else{count2 += (24-curr2);}}
+				if(curr<(24-curr)){count1 += curr;}else{count1 += (24-curr);}
+			}
+			int curr = myArr.get(testcase-1).intValue() - myArr.get(0).intValue();
+			if(curr<(24-curr)){count2 += curr;}else{count2 += (24-curr);}
+			if(count1<count2){System.out.println(count1);}else{System.out.println(count2);}
+			line = br.readLine();
+		}
+	}
+}
