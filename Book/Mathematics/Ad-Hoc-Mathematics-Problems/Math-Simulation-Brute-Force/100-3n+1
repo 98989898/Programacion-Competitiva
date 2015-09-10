@@ -1,0 +1,58 @@
+
+//ACCEPTED BY UVA
+
+import java.io.*;
+import java.util.*;
+import java.math.*;
+import java.text.*;
+import java.lang.*;
+
+class Main {
+	public static void main(String[] args) throws Exception {
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		String input = br.readLine();
+		while (input!=null&& !input.equals("")) {
+			String[] nums = input.split("\\s+");   //EVEN THOUGH NOT SPESIFIED INPUT MIGHT CONTAIN ANY AMOUNT OF SPACES (\\S+ ALL SPACES)
+			int a = -1;
+			int b = -1;
+			if (!nums[0].equals("")) {   //FOR INPUTS WITH BLANK SPACE AT BEGINNING
+				System.out.print(nums[0]+" "+nums[1]+" ");
+				a = Integer.parseInt(nums[0]);
+				b = Integer.parseInt(nums[1]);
+			} else {
+				System.out.print(nums[1]+" "+nums[2]+" ");
+				a = Integer.parseInt(nums[1]);
+				b = Integer.parseInt(nums[2]);
+			}
+			long max = 0;
+			if (b<a) {
+				int c = a;
+				a=b;
+				b=c;
+			}
+			long[] answers =  new long[b-a+1];
+
+			for (int i=b;i>=a;i--) {
+				long n = i;
+				while (true) {
+					answers[i-a] += 1;
+					if (n == 1) {
+						break;
+					}
+					if (n%2==0) {
+						n=n/2;
+					} else {
+						n=3*n+1;
+					}
+				}
+			}
+			for (int z = 0; z < (b-a+1); z++) {
+				if (answers[z]>max) {
+					max = answers[z];
+				}
+			}
+			System.out.println(max);
+			input = br.readLine();
+		}
+	}
+}
