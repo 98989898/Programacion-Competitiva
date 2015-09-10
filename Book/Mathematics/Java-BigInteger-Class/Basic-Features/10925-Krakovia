@@ -1,0 +1,29 @@
+
+// ACCEPTED BY UVA
+
+import java.io.*;
+import java.util.*;
+import java.math.*;
+import java.text.*;
+import java.lang.*;
+
+class Main {
+	public static void main(String[] args) throws Exception{
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		String line = br.readLine();
+		int counter = 1;
+		while(!line.equals("0 0")) {
+			String[] nums = line.split(" ");
+			int items = Integer.valueOf(nums[0]);
+		  	BigInteger sum = new BigInteger("0");
+			for (int i =0;i<items;i++) {
+				sum = sum.add(new BigInteger(br.readLine()));
+			}
+			BigInteger total = sum.divide(new BigInteger(nums[1]));
+			System.out.println("Bill #"+counter+" costs "+sum+": each friend should pay "+total);
+			System.out.println();
+			counter++;
+		  line = br.readLine();
+		}
+	}
+}
