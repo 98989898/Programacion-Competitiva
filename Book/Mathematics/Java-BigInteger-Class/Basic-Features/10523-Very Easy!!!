@@ -1,0 +1,26 @@
+
+//ACCEPTED BY UVA
+
+import java.io.*;
+import java.util.*;
+import java.math.*;
+import java.text.*;
+import java.lang.*;
+
+class Main {
+	public static void main(String[] args) throws Exception {
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		String line = br.readLine();
+		while (line!=null&&!line.isEmpty()) {
+			String[] nums = line.split(" ");
+			int N = Integer.parseInt(nums[0]);
+			BigInteger A = new BigInteger(nums[1]);
+			BigInteger sum = new BigInteger("0");
+			for (int i = 1;i<=N;i++) {
+				sum = sum.add(A.pow(i).multiply(new BigInteger(i+"")));
+			}
+			System.out.println(sum);
+			line = br.readLine();
+		}
+	}
+}
