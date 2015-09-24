@@ -1,0 +1,21 @@
+import java.io.*;
+import java.util.*;
+import java.math.*;
+import java.text.*;
+import java.lang.*;
+
+class Main {
+	public static void main(String[] args) throws Exception {
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		String line = br.readLine();
+		int n = Integer.parseInt(line);
+		for (int tst = 0; tst<n; tst++) {
+			line = br.readLine();
+			String[] nums = line.split("\\s+");
+			BigInteger num1 = new BigInteger(new StringBuilder(nums[0]).reverse().toString());
+			BigInteger num2 = new BigInteger(new StringBuilder(nums[1]).reverse().toString());
+			BigInteger sum = num1.add(num2);
+			System.out.println(new BigInteger(new StringBuilder(sum.toString()).reverse().toString()));
+		}
+	}
+}
