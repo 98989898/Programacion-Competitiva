@@ -1,0 +1,33 @@
+
+//ACCEPTED BY UVA
+
+import java.io.*;
+import java.util.*;
+import java.math.*;
+import java.text.*;
+import java.lang.*;
+
+class Main {
+	public static void main(String[] args) throws Exception {
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		String input = br.readLine();
+		while (input!=null && !input.isEmpty()&&!input.equals("0")) {
+			int d = 5*Integer.parseInt(input.charAt(input.length()-1)+"");
+			input = input.substring(0,input.length()-1);
+			if (input.isEmpty()) {
+				System.out.println("0");
+			} else {
+			BigInteger curr = new BigInteger(input);
+			curr = curr.subtract(new BigInteger(d+""));
+			curr = curr.mod(new BigInteger("17"));
+			if (curr.intValue()==0) {
+				System.out.println("1");
+			} else {
+				System.out.println("0");
+			}
+			}
+			input = br.readLine();
+			
+		}
+	}	
+}
