@@ -1,0 +1,32 @@
+import java.io.*;
+import java.util.*;
+import java.math.*;
+import java.text.*;
+import java.lang.*;
+
+class Main {
+	public static void main(String[] args) throws IOException {
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		String line = br.readLine();
+		int testcases = Integer.parseInt(line);
+		for (int i = 0;i< testcases; i++) {
+			line = br.readLine();
+			String[] nums = line.split(" ");
+			long distance = Long.parseLong(nums[0]);
+			long vriver = Long.parseLong(nums[1]);
+			long vboat = Long.parseLong(nums[2]);
+			
+			if (vriver>=vboat||vboat==0) {
+				System.out.println("Case "+(i+1)+": can't determine");
+			} else {
+				double fastTime = ((double)distance)/vboat;
+				double vHorizontal = Math.sqrt(((Math.pow(vboat,2)) - (Math.pow(vriver,2))));
+				double horizontalTime = distance/vHorizontal;
+				double ans = Math.abs(fastTime-horizontalTime);
+				DecimalFormat format = new DecimalFormat("0.000");
+				System.out.println("Case "+(i+1)+": "+format.format(ans));
+				
+			}
+		}
+	}
+}
