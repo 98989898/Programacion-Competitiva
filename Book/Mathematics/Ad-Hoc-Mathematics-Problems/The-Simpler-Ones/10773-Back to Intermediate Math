@@ -1,3 +1,6 @@
+
+//ACCEPTED BY UVA
+
 import java.io.*;
 import java.util.*;
 import java.math.*;
@@ -15,8 +18,7 @@ class Main {
 			long distance = Long.parseLong(nums[0]);
 			long vriver = Long.parseLong(nums[1]);
 			long vboat = Long.parseLong(nums[2]);
-			
-			if (vriver>=vboat||vboat==0) {
+			if (vriver>=vboat||vboat==0||vriver==0) {
 				System.out.println("Case "+(i+1)+": can't determine");
 			} else {
 				double fastTime = ((double)distance)/vboat;
