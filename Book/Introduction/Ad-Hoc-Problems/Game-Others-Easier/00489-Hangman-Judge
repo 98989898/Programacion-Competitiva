@@ -1,6 +1,5 @@
 
-//NOT ACCEPTED BY UVA
-//TIME LIMIT EXCEEDED...
+//ACCEPTED BY UVA
 
 import java.io.*;
 import java.util.*;
@@ -12,17 +11,19 @@ class Main {
 	public static ArrayList<Character> inputed = new ArrayList<Character>();
 	public static boolean[] word;
 	
-	public static void main(String[] args) {
-		Scanner scn = new Scanner(System.in);
+	public static void main(String[] args) throws Exception{
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		PrintWriter pr = new PrintWriter(new BufferedWriter(new OutputStreamWriter(System.out)));
 		boolean end = true;
-		int round = scn.nextInt();
+		
+		int round = Integer.parseInt(br.readLine());
+		
 		while (round!=-1) {
 			inputed.clear();
-			scn.nextLine();
 			int wrong = 0;
 			int endResult = 0;
-			String solvedd = scn.nextLine();
-			String input = scn.nextLine();
+			String solvedd = br.readLine();
+			String input = br.readLine();
 			word = new boolean[solvedd.length()];
 			char[] letters = input.toCharArray();
 			char[] solved = solvedd.toCharArray();
@@ -52,18 +53,19 @@ class Main {
 					}
 				}
 			}
-			System.out.println("Round "+round);
+			pr.println("Round "+round);
 			if (endResult == 0) {
-				System.out.println("You chickened out.");
+				pr.println("You chickened out.");
 			}
 			if (endResult == 1) {
-				System.out.println("You lose.");
+				pr.println("You lose.");
 			}
 			if (endResult == 2) {
-				System.out.println("You win.");
+				pr.println("You win.");
 			}
-			round = scn.nextInt();
+			round = Integer.parseInt(br.readLine());
 		}
+		pr.close();
 	}
 	public static boolean hasAppeared(char a){
 		for (int j = 0;j<inputed.size();j++) {
