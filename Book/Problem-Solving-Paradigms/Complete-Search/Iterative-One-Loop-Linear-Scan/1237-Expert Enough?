@@ -1,0 +1,60 @@
+import java.io.*;
+import java.util.*;
+import java.math.*;
+import java.text.*;
+import java.lang.*;
+
+class Main {
+	public static void main(String[] args) throws Exception {
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		PrintWriter pr = new PrintWriter(new BufferedWriter(new OutputStreamWriter(System.out)));
+		
+		int testcases = testcases = Integer.parseInt(br.readLine());
+
+		
+		for (int kz = 0; kz < testcases; kz++) {
+			
+			int database = Integer.parseInt(br.readLine());
+			String[] names = new String[database];
+			int[] low = new int[database];
+			int[] high = new int[database];
+			
+			for (int i = 0; i < database; i++) {
+				String line = br.readLine();
+				String[] data = line.split("\\s+");
+				names[i] = data[0];
+				low[i] = Integer.parseInt(data[1]);
+				high[i] = Integer.parseInt(data[2]);
+			}
+			
+			int query = Integer.parseInt(br.readLine());
+			for (int j = 0; j < query;j++) {
+				int price = Integer.parseInt(br.readLine());
+				boolean found = false;
+				String name = "";
+				for (int i = 0; i < database; i++) {
+					if (price<=high[i] && price>=low[i]) {
+						if (found) {
+							found = false;
+							break;
+						} else {
+							found = true;
+							name = names[i];
+						}
+					}
+				}
+				if (found) {
+					pr.println(name);
+				} else {
+					pr.println("UNDETERMINED");
+				}
+			}
+			if (kz+1<testcases) {
+				pr.println();
+			}
+			
+		}
+		
+		pr.close();
+	}
+}
