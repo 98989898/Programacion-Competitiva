@@ -1,6 +1,5 @@
 
-//NOT ACCEPTED BY UVA
-//TIME LIMIT EXCEEDED...
+//ACCEPTED BY UVA
 
 import java.io.*;
 import java.util.*;
@@ -33,9 +32,10 @@ class Main {
 		return sum;
 	}
 	
-	public static void main(String[] args) {
-		Scanner scn = new Scanner(System.in);
-		String testcases = scn.nextLine();
+	public static void main(String[] args) throws Exception {
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		PrintWriter pr = new PrintWriter(new BufferedWriter(new OutputStreamWriter(System.out)));
+		String testcases = br.readLine();
 		while(!testcases.equals("Game Over")) {
 		testcases = testcases.replace(" ","");
 	 	char[] letters = testcases.toCharArray();
@@ -58,8 +58,9 @@ class Main {
 				}
 			}
 		}
-		System.out.println(pts);
-		testcases = scn.nextLine();
+		pr.println(pts);
+		testcases = br.readLine();
 		}
+		pr.close();
 	}
 }
