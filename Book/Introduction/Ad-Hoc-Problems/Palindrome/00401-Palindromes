@@ -1,5 +1,5 @@
 
-//NOT ACCEPTED BY UVA
+//ACCEPTED BY UVA
 
 import java.io.*;
 import java.util.*;
@@ -24,6 +24,9 @@ class Main {
 		Scanner scn = new Scanner(System.in);
 		while(scn.hasNextLine()) {
 			String line = scn.nextLine();
+			if (line.isEmpty()) {
+				break;
+			}
 			boolean isPalindrome = true;
 			boolean isMirror = true;
 			int half;
@@ -55,6 +58,7 @@ class Main {
 			} else {
 				System.out.println(line + " -- is not a palindrome.");
 			}
+			System.out.println();
 		}
 	}
 }
