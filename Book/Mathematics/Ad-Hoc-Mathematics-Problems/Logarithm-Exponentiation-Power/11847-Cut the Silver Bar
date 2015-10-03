@@ -1,0 +1,28 @@
+
+//ACCEPTED BY UVA
+
+import java.io.*;
+import java.util.*;
+import java.math.*;
+import java.text.*;
+import java.lang.*;
+
+class Main {
+	public static void main(String[] args) throws Exception {
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		PrintWriter pr = new PrintWriter(new BufferedWriter(new OutputStreamWriter(System.out)));
+		int total = Integer.parseInt(br.readLine());
+		while (total>0) {
+			int sum = 1;     //max number reachable with current counter
+			int counter = 0; //number of cuts
+			while (total>sum) {
+				sum = 2*sum + 1;
+				counter++;
+			}
+			pr.println(counter);
+			total = Integer.parseInt(br.readLine());
+		}
+		
+		pr.close();
+	}
+}
