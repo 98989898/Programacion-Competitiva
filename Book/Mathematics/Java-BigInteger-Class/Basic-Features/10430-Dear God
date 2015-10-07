@@ -1,0 +1,44 @@
+
+//ACCEPTED BY UVA
+
+import java.io.*;
+import java.util.*;
+import java.math.*;
+import java.text.*;
+import java.lang.*;
+
+//Note that
+//X=(1-T^N)/(1-T) for T!=1
+//K=T^N
+//Else
+//X = N for T==1
+class Main {
+	public static void main(String[] args) throws Exception {
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		PrintWriter pr = new PrintWriter(new BufferedWriter(new OutputStreamWriter(System.out)));
+		String line = br.readLine();
+		pr.print("Dear GOD, Pardon Me");
+		while (line!=null&&!line.isEmpty()) {
+			String[] split = line.split(" ");
+			BigInteger T = new BigInteger(split[0]);
+			int N = Integer.parseInt(split[1]);
+			
+			BigInteger X;
+			BigInteger K = T.pow(N);
+			BigInteger ONE = new BigInteger("1");
+			if (T.compareTo(ONE)!=0) {
+				X = ONE.subtract(K);
+				X = X.divide(ONE.subtract(T));
+			} else {
+				X = BigInteger.valueOf(N);
+			}
+			
+			pr.println();
+			pr.println("X = "+X);
+			pr.println("K = "+K);
+			line = br.readLine();
+		}
+		
+		pr.close();
+	}
+}
