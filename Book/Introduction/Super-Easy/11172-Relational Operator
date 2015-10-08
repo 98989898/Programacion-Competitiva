@@ -1,0 +1,32 @@
+
+//ACCEPTED BY UVA
+
+import java.io.*;
+import java.util.*;
+import java.math.*;
+import java.text.*;
+import java.lang.*;
+
+class Main {
+	public static void main(String[] args) throws Exception {
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		PrintWriter pr = new PrintWriter(new BufferedWriter(new OutputStreamWriter(System.out)));
+		String line = br.readLine();
+		int testcases = Integer.parseInt(line);
+		for (int kz = 0 ; kz < testcases ; kz++) {
+			line = br.readLine();
+			String[] split = line.split(" ");
+			int a = Integer.parseInt(split[0]);
+			int b = Integer.parseInt(split[1]);
+			if (a<b) {
+				pr.println("<");
+			} else if (a>b) {
+				pr.println(">");
+			} else {
+				pr.println("=");
+			}
+		}
+		
+		pr.close();
+	}
+}
