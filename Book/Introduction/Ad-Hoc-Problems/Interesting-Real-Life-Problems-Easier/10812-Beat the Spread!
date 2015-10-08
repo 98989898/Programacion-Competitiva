@@ -1,0 +1,42 @@
+
+//ACCEPTED BY UVA
+
+import java.io.*;
+import java.util.*;
+import java.math.*;
+import java.text.*;
+import java.lang.*;
+
+class Main {
+	public static void main(String[] args) throws Exception {
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		PrintWriter pr = new PrintWriter(new BufferedWriter(new OutputStreamWriter(System.out)));
+		String line = br.readLine();
+		int testcases = Integer.parseInt(line);
+		for (int kz = 0 ; kz < testcases ; kz++) {
+			line = br.readLine();
+			String[] split = line.split(" ");
+			int sum = Integer.parseInt(split[0]);
+			int diff = Integer.parseInt(split[1]);
+			int difference = sum - diff;
+			int ans1 = 0;
+			int ans2 = 0;
+			if (difference%2==0) {
+				ans1 = difference/2;
+				ans2 = sum-ans1;
+			}
+			if (ans2>ans1) {
+				int temp = ans1;
+				ans1=ans2;
+				ans2=temp;
+			}
+			if (diff>sum||difference%2!=0) {
+				pr.println("impossible");
+			} else {
+				pr.println(ans1+" "+ans2);
+			}
+		}
+		
+		pr.close();
+	}
+}
