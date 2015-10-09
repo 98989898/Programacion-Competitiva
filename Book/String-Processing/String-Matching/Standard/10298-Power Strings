@@ -1,0 +1,45 @@
+
+//ACCEPTED BY UVA
+
+import java.io.*;
+import java.util.*;
+import java.math.*;
+import java.text.*;
+import java.lang.*;
+
+class Main {
+	static int size = 0;
+	public static void main(String[] args) throws Exception {
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		PrintWriter pr = new PrintWriter(new BufferedWriter(new OutputStreamWriter(System.out)));
+		String line = br.readLine();
+		while (line!=null && !line.isEmpty() && !line.equals(".")) {
+			int max = 1;
+			size = line.length();
+			boolean newmax = false;
+			for (int i =1;i<=size/2 && !newmax;i++) {
+				if (size%i==0) {
+					if(match(line,i)){
+						max = size/i;
+						newmax = true;
+					}
+				}
+			}
+			pr.println(max);
+			line = br.readLine();
+		}
+		
+		pr.close();
+	}
+	static boolean match(String text, int substringsize){
+		int checks = size/substringsize-1;
+		for (int i = 1; i <= checks;i++) {
+			for (int inside = 0;inside < substringsize;inside++) {
+				if (text.charAt(i*substringsize+inside)!=text.charAt(inside)) {
+					return false;
+				}
+			}
+		}
+		return true;
+	}
+}
