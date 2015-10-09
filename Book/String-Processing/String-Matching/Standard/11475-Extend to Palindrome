@@ -1,0 +1,93 @@
+
+//ACCEPTED BY UVA
+
+import java.io.*;
+import java.util.*;
+import java.math.*;
+import java.text.*;
+import java.lang.*;
+
+class Main {
+	static int size = 0;
+	static int center = 0;
+	static String line;
+	static int palstart = 0;
+	public static void main(String[] args) throws Exception {
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		PrintWriter pr = new PrintWriter(new BufferedWriter(new OutputStreamWriter(System.out)));
+		line = br.readLine();
+		while (line!=null && !line.isEmpty()) {
+			size = line.length();
+			center = size/2;
+			if (size%2==0) {
+				isOriginallyPalindrome();
+			}
+			while (center<size) {
+				if (isPalidrome()) {
+					break;
+				}else {
+					center++;
+				}
+			}
+			pr.println(complete());
+			line = br.readLine();
+		}
+		
+		pr.close();
+	}
+	//1234567
+	static boolean isPalidrome(){
+		boolean answer = true;
+		int end = size - center - 1;
+		//check odd palindrome
+		for (int i = 1 ; i <= end; i++ ) {
+			if (line.charAt(center+i)!=line.charAt(center-i)) {
+				answer = false;
+				break;
+			}
+		}
+		if (answer) {
+			palstart = center - end;
+			return answer;
+		}
+		answer = true;
+		//check even palidnrome
+		for(int i = 1 ; i <= end; i++ ) {
+			if (line.charAt(center-i+1)!=line.charAt(center+i)) {
+				answer = false;
+				break;
+			}
+		}
+		if (answer) {
+			palstart = center-end+1;
+		}
+		return answer;
+	}
+	static String complete(){
+		if (center>size) {
+			return line;
+		}
+		if (size==1) {
+			return line;
+		}
+		if (center==size) {
+			StringBuilder answer = new StringBuilder(line);
+			StringBuilder lineB = new StringBuilder(line);
+			answer.append(lineB.delete(size-1,size).reverse());
+			return answer.toString();
+		}
+		StringBuilder ans = new StringBuilder(line);
+		StringBuilder lineB = new StringBuilder(line);
+		ans.append(lineB.delete(palstart,size).reverse());
+		return ans.toString();
+		
+	}
+	static void isOriginallyPalindrome(){
+		for (int i = 0 ; i < size/2 ; i++) {
+			if (line.charAt(i)!=line.charAt(size-1-i)) {
+				return;
+			}
+		}
+		center = size+1;
+	}
+}
