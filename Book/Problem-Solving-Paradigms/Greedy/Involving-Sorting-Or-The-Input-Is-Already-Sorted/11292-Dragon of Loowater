@@ -1,0 +1,53 @@
+
+//ACCEPTED BY UVA
+
+import java.io.*;
+import java.util.*;
+import java.math.*;
+import java.text.*;
+import java.lang.*;
+
+class Main {
+	public static void main(String[] args) throws Exception {
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		PrintWriter pr = new PrintWriter(new BufferedWriter(new OutputStreamWriter(System.out)));
+		String line = br.readLine();
+		while (line!=null&&!line.equals("0 0")&&!line.isEmpty()) {
+			String[] split = line.split(" ");
+			int head = Integer.parseInt(split[0]);
+			int knight = Integer.parseInt(split[1]);
+			int[] heads = new int[head];
+			int[] knights = new int[knight];
+			for (int i = 0 ; i < head ; i++) {
+				heads[i] = Integer.parseInt(br.readLine());
+			}
+			for (int i = 0 ; i < knight ; i++) {
+				knights[i] = Integer.parseInt(br.readLine());
+			}
+			Arrays.sort(heads);
+			Arrays.sort(knights);
+			int price = 0;
+			int h = 0;
+			int k = 0;
+			if (knight<head) {
+				h =-1;
+				k=knight;
+			}
+			while (h<head&&k<knight) {
+				if (knights[k]>=heads[h]) {
+					price +=knights[k];
+					h++;
+				}
+				k++;
+			}
+			if (h>=head) {
+				pr.println(price);
+			} else {
+				pr.println("Loowater is doomed!");
+			}
+			line = br.readLine();
+		}
+		
+		pr.close();
+	}
+}
