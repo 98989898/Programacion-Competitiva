@@ -1,0 +1,53 @@
+
+//ACCEPTED BY UVA
+
+import java.io.*;
+import java.util.*;
+import java.math.*;
+import java.text.*;
+import java.lang.*;
+
+class Main {
+	public static void main(String[] args) throws Exception {
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		PrintWriter pr = new PrintWriter(new BufferedWriter(new OutputStreamWriter(System.out)));
+		String line = br.readLine();
+		int testcases = Integer.parseInt(line);
+		for (int kz = 0 ; kz < testcases ; kz++) {
+			int numOfPaidChar = Integer.parseInt(br.readLine());
+			char[] chars = new char[numOfPaidChar];
+			int[] prices = new int[numOfPaidChar];
+			for (int i = 0 ; i < numOfPaidChar ; i++) {
+				line = br.readLine();
+				String[] split = line.split(" ");
+				chars[i] = line.charAt(0);
+				prices[i] = Integer.parseInt(split[1]);
+			}
+			int sum = 0;
+			int m = Integer.parseInt(br.readLine());
+			for (int i = 0 ; i < m ; i++) {
+				line = br.readLine();
+				for (int j = 0 ; j < line.length() ; j++) {
+					for (int z = 0 ; z < numOfPaidChar ; z++) {
+						if (line.charAt(j)==chars[z]) {
+							sum += prices[z];
+							break;
+						}
+					}
+				}
+			}
+			String sumAsString = sum+"";
+			String solution = "";
+			if (sumAsString.length()>2) {
+				solution = solution + sumAsString.substring(0,sumAsString.length()-2) + "." + sumAsString.substring(sumAsString.length()-2,sumAsString.length()) + "$";
+			} else if (sumAsString.length()==2) {
+				solution = solution + "0." + sumAsString + "$";
+			} else if (sumAsString.length()==1) {
+				solution = solution + "0.0" + sumAsString + "$";
+			} 
+			pr.println(solution);
+		}
+		
+		pr.close();
+	}
+}
