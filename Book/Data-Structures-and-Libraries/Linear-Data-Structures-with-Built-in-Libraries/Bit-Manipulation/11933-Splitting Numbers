@@ -1,0 +1,69 @@
+
+//ACCEPTED BY UVA
+
+import java.io.*;
+import java.util.*;
+import java.math.*;
+import java.text.*;
+import java.lang.*;
+
+class Main {
+	public static void main(String[] args) throws Exception {
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		PrintWriter pr = new PrintWriter(new BufferedWriter(new OutputStreamWriter(System.out)));
+		String line = br.readLine();
+		int n = Integer.parseInt(line);
+		while (n!=0) {
+			StringBuilder st1 = new StringBuilder();
+			StringBuilder st2 = new StringBuilder();
+			/*boolean use1 = true;
+			while (n!=0) {
+				int curr = n%2;
+				if (use1) {
+					str2.append("0");
+					if (n==0) {
+						str1.append("0")
+					} else {
+						str1.append("1");
+					}
+					use1 = false;
+				} else {
+					str1.append("0")
+					if (n==0) {
+						str2.append("0")
+					} else {
+						str2.append("1");
+					}
+					use1 = true;
+				}
+				n = n/2;
+			}*/
+			String binary = Integer.toString(n,2);
+			boolean use1 = true;
+			for (int i = binary.length()-1 ; i >= 0 ; i--) {
+				if (binary.charAt(i)=='1') {
+					if (use1) {
+						st1.append("1");
+						st2.append("0");
+						use1 = false;
+					} else {
+						st1.append("0");
+						st2.append("1");
+						use1 = true;
+					}
+				} else {
+					st1.append("0");
+					st2.append("0");
+				}
+				
+			}
+			st1.reverse();
+			st2.reverse();
+			String sol = Integer.valueOf(st1.toString(),2).toString()+" "+Integer.valueOf(st2.toString(),2);
+			pr.println(sol);
+			line = br.readLine();
+			n = Integer.parseInt(line);
+		}
+		pr.close();
+	}
+}
