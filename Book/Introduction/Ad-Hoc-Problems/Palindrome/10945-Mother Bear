@@ -1,0 +1,38 @@
+
+//ACCEPTED BY UVA
+
+import java.io.*;
+import java.util.*;
+import java.math.*;
+import java.text.*;
+import java.lang.*;
+
+class Main {
+	public static void main(String[] args) throws Exception {
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		PrintWriter pr = new PrintWriter(new BufferedWriter(new OutputStreamWriter(System.out)));
+		String line = br.readLine();
+		while (line!=null&&!line.equals("DONE")&&!line.isEmpty()) {
+			line = line.replace(".","").replace(",","").replace("!","").replace("?","").replace(" ","").toLowerCase();
+			int length = line.length();
+			boolean ispalindrome = true;
+			for (int i = 0; i < length/2 ; i++) {
+				if (line.charAt(i)!=line.charAt(length-1-i)) {
+					//System.out.println(line);
+					//System.out.println(line.charAt(i));
+					//System.out.println(line.charAt(length-1-i));
+					ispalindrome = false;
+					break;
+				}
+			}
+			if (ispalindrome) {
+				pr.println("You won't be eaten!");
+			} else {
+				pr.println("Uh oh..");
+			}
+			line = br.readLine();
+		}
+		
+		pr.close();
+	}
+}
