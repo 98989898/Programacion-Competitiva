@@ -1,0 +1,116 @@
+
+//ACCEPTED BY UVA
+
+import java.io.*;
+import java.util.*;
+import java.math.*;
+import java.text.*;
+import java.lang.*;
+//0 means no info
+//1 means coin is legitimate
+//2 means coin is heavier
+//3 means coin is lighter
+class Main {
+	static int[] coin;
+	static String[] split;
+	public static void main(String[] args) throws Exception {
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		PrintWriter pr = new PrintWriter(new BufferedWriter(new OutputStreamWriter(System.out)));
+		String line = br.readLine();
+		int testcases = Integer.parseInt(line);
+		for (int kz = 0;kz<testcases;kz++) {
+			coin = new int[12];
+			boolean noteven = false;
+			for (int j = 0 ; j < 3; j++) {
+				line = br.readLine();
+				split = line.split(" ");
+				if (split[2].equals("even")) {
+					processEven();
+				} else if (split[2].equals("up")) {
+					if (!noteven) {
+						processFirstNonEven(2,3);
+					} else {
+						processSecondNonEven(2,3);
+					}
+					noteven = true;
+				} else {
+					if (!noteven) {
+						processFirstNonEven(3,2);
+					} else {
+						processSecondNonEven(3,2);
+					}
+					noteven = true;
+				}
+			}
+			for (int i = 0 ; i < 12; i++) {
+				if (coin[i]==2) {
+					int k = 'A'+i;
+					char sol = (char)k;
+					pr.println(sol + " is the counterfeit coin and it is heavy.");
+					break;
+				}
+				if (coin[i]==3) {
+					int k = 'A'+i;
+					char sol = (char)k;
+					pr.println(sol +" is the counterfeit coin and it is light.");
+					break;
+				}
+			}
+		}
+		pr.close();
+	}
+	//SET ALL COINS THAT APPEAR TO LEGITIMATE
+	static void processEven(){
+		for (int m = 0; m<split[0].length();m++) {
+			coin[split[0].charAt(m)-'A'] = 1;
+			coin[split[1].charAt(m)-'A'] = 1;
+		}
+	}
+	//SET ALL COINS THAT APPEAR AND ARE NOT ORIGINALLY LEGITIMATE TO POTENTIALLY HEAVIER/LIGHTER
+	static void processFirstNonEven(int left, int right){
+		for (int m = 0 ; m < split[0].length() ; m++) {
+			if (coin[split[0].charAt(m)-'A']!=1) {
+				coin[split[0].charAt(m)-'A'] = left;
+			}
+			if (coin[split[1].charAt(m)-'A']!=1) {
+				coin[split[1].charAt(m)-'A'] = right;
+			}
+		}
+	}
+	//if before, but not now ch to 1
+	//if before 3, but now 2 ch to 1
+	//if before 2, but now 3 ch to 1
+	//if first apparition ch to 1
+	static void processSecondNonEven(int left, int right){
+		
+		boolean[] beforeButNotNow = new boolean[12];
+		for (int m = 0 ; m < 12 ; m++) {
+			if (coin[m]>1) {
+				beforeButNotNow[m]=true;
+			}
+		}
+		for (int m = 0 ; m < split[0].length() ; m++) {
+			beforeButNotNow[split[0].charAt(m)-'A']=false;
+			beforeButNotNow[split[1].charAt(m)-'A']=false;
+			if (coin[split[0].charAt(m)-'A']==0) {
+				coin[split[0].charAt(m)-'A'] = 1;
+			}else if (coin[split[0].charAt(m)-'A']==3&&left==2) {
+				coin[split[0].charAt(m)-'A'] = 1;
+			}else if (coin[split[0].charAt(m)-'A']==2&&left==3) {
+				coin[split[0].charAt(m)-'A'] = 1;
+			}
+			if (coin[split[1].charAt(m)-'A']==0) {
+				coin[split[1].charAt(m)-'A'] = 1;
+			}else if (coin[split[1].charAt(m)-'A']==3&&right==2) {
+				coin[split[1].charAt(m)-'A'] = 1;
+			}else if (coin[split[1].charAt(m)-'A']==2&&right==3) {
+				coin[split[1].charAt(m)-'A'] = 1;
+			}
+		}
+		for (int m = 0 ; m < 12 ; m++) {
+			if (beforeButNotNow[m]) {
+				coin[m]=1;
+			}
+		}
+	}
+}
