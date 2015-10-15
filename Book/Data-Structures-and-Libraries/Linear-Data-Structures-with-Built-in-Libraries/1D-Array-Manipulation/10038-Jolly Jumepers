@@ -1,0 +1,51 @@
+
+//ACCEPTED BY UVA
+
+import java.io.*;
+import java.util.*;
+import java.math.*;
+import java.text.*;
+import java.lang.*;
+
+class Main {
+	public static void main(String[] args) throws Exception {
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		PrintWriter pr = new PrintWriter(new BufferedWriter(new OutputStreamWriter(System.out)));
+		String line = br.readLine();
+		while (line!=null&&!line.isEmpty()) {
+			String[] split = line.split(" ");
+			int n = Integer.parseInt(split[0]);
+			int[] arr = new int[n];
+			boolean[] has = new boolean[n];
+			for (int i = 0 ; i < n ; i++) {
+				arr[i] = Integer.parseInt(split[1+i]);
+			}
+			for (int i = 1; i < n ; i++) {
+				int diff;
+				if (arr[i-1]<arr[i]) {
+					diff = arr[i]-arr[i-1];
+				} else {
+					diff = arr[i-1] - arr[i];
+				}
+				if (diff>=0 &&diff<n) {
+					has[diff] = true;
+				}
+			}
+			boolean jolly = true;
+			for (int i = 1 ; i < n ; i++) {
+				if (!has[i]) {
+					jolly = false;
+					break;
+				}
+			}
+			if (jolly) {
+				pr.println("Jolly");
+			} else {
+				pr.println("Not jolly");
+			}
+			line = br.readLine();
+		}
+		
+		pr.close();
+	}
+}
