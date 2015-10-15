@@ -1,0 +1,55 @@
+
+//ACCEPTED BY UVA
+
+import java.io.*;
+import java.util.*;
+import java.math.*;
+import java.text.*;
+import java.lang.*;
+
+class Main {
+	static boolean[] total;
+	public static void main(String[] args) throws Exception {
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		PrintWriter pr = new PrintWriter(new BufferedWriter(new OutputStreamWriter(System.out)));
+		String line = br.readLine();
+		int testcases = Integer.parseInt(line);
+		for (int kz = 0 ; kz < testcases ; kz++) {
+			int node = Integer.parseInt(br.readLine());
+			int[] adj = new int[node];
+			total = new boolean[node];
+			for (int j = 0 ; j < node ; j++) {
+				line = br.readLine();
+				String[] split = line.split(" ");
+				adj[Integer.parseInt(split[0])-1] = Integer.parseInt(split[1])-1;
+			}
+			int max = -1;
+			int startNode = 666666;
+			for (int i = 0 ; i < node; i++) {
+				if (total[i]==false) {
+					boolean[] curr = new boolean [node];
+					int sum = 0;
+					total[i]=true;
+					curr[i]=true;
+					sum++;
+					int nodes = adj[i];
+					while (curr[nodes]==false) {
+						total[nodes]=true;
+						curr[nodes]=true;
+						sum++;
+						nodes = adj[nodes];
+					}
+					if (sum>max) {
+						max = sum;
+						startNode = i;
+					} else if (sum==max&&i<startNode) {
+						startNode = i;
+					}
+				}
+			}
+			pr.println("Case "+(kz+1)+": "+(startNode+1));
+		}
+		
+		pr.close();
+	}
+}
