@@ -1,0 +1,41 @@
+
+//ACCEPTED BY UVA
+
+import java.io.*;
+import java.util.*;
+import java.math.*;
+import java.text.*;
+import java.lang.*;
+
+class Main {
+	public static void main(String[] args) throws Exception {
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		PrintWriter pr = new PrintWriter(new BufferedWriter(new OutputStreamWriter(System.out)));
+		String line = br.readLine();
+		int testcases = Integer.parseInt(line.replace(" ",""));
+		for (int kz = 0 ; kz < testcases ; kz++) {
+			line = br.readLine();
+			int n = Integer.parseInt(line.replace(" ",""));
+			StringBuilder sol = new StringBuilder();
+			for (int i =1 ; i<=n;i++) {
+				sol.append(i+"");
+			}
+			int[] freq = new int[10];
+			String process = sol.toString();
+			for (int i = 0; i < process.length();i++) {
+				freq[Integer.parseInt((process.charAt(i))+"")] += 1;
+			}
+			for (int i = 0 ; i < 10 ; i++) {
+				pr.print(freq[i]);
+				if (i+1<10) {
+					pr.print(" ");
+				}
+			}
+			
+			pr.println();
+			
+		}
+		
+		pr.close();
+	}
+}
