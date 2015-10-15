@@ -1,0 +1,73 @@
+
+//ACCETPED BY UVA
+
+import java.io.*;
+import java.util.*;
+import java.math.*;
+import java.text.*;
+import java.lang.*;
+
+class Main {
+	static int[] morning;
+	static int[] night;
+	static boolean[] used;
+	static int n;
+	static int d;
+	static int r;
+	public static void main(String[] args) throws Exception {
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		PrintWriter pr = new PrintWriter(new BufferedWriter(new OutputStreamWriter(System.out)));
+		String line = br.readLine();
+		while (line!=null&&!line.equals("0 0 0")&&!line.isEmpty()) {
+			String[] split = line.split(" ");
+			n = Integer.parseInt(split[0]);
+			d = Integer.parseInt(split[1]);
+			r = Integer.parseInt(split[2]);
+			morning = new int[n];
+			night = new int[n];
+			used = new boolean[n];
+			line = br.readLine();
+			split = line.split(" ");
+			for (int i = 0 ; i < n ; i++) {
+				morning[i] = Integer.parseInt(split[i]);
+			}
+			line = br.readLine();
+			split = line.split(" ");
+			for (int i = 0 ; i < n ; i++) {
+				night[i] = Integer.parseInt(split[i]);
+			}
+			Arrays.sort(night);
+			Arrays.sort(morning);
+			int sum = 0;
+			for (int i = n-1 ; i >= 0 ; i--) {
+				
+				int curr = morning[i]+night[match(i,morning[i])];
+				if (curr>d) {
+					sum += r*(curr-d);
+				}
+			}
+			pr.println(sum);
+			line = br.readLine();
+		}
+		
+		pr.close();
+	}
+	static int match(int j, int compare){
+		int sol = -1;
+		for (int i = 0; i < n; i++) {
+			if (!used[i]) {
+				if (sol<0) {
+					sol = i;
+				}
+				if (night[i]+compare>d) {
+					used[sol]=true;
+					return sol;
+				} else {
+					sol = i;
+				}
+			}
+		}
+		used[sol]=true;
+		return sol;
+	}
+}
