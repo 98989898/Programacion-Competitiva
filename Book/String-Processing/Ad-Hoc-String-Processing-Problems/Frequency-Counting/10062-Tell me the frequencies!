@@ -1,0 +1,48 @@
+
+//ACCEPTED BY UVA
+
+import java.io.*;
+import java.util.*;
+import java.math.*;
+import java.text.*;
+import java.lang.*;
+
+class Main {
+	public static void main(String[] args) throws Exception {
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		PrintWriter pr = new PrintWriter(new BufferedWriter(new OutputStreamWriter(System.out)));
+		String line = br.readLine();
+		while (line!=null) {
+			line.replace("\\n","").replace("\\r","");
+			int[] freq = new int[129];
+			for (int i = 0 ; i < line.length() ; i++) {
+				int curr = line.charAt(i);
+				freq[curr] += 1;
+			}
+			int min = 10;
+			while(min!=0){
+				min = 0;
+				int sol = 0;
+				for (int i = 128 ; i >=30 ; i--) {
+					if (freq[i]>0) {
+						if (min==0||min>freq[i]) {
+							min = freq[i];
+							sol = i;
+						}
+					}
+				}
+				if (min>0) {
+					pr.println(sol+" "+min);
+					freq[sol] = 0;
+				}
+			}
+			
+			line = br.readLine();
+			if (line!=null) {
+				pr.println();
+			}
+		}
+		
+		pr.close();
+	}
+}
