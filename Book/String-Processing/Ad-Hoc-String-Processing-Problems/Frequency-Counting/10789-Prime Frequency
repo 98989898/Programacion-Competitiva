@@ -1,0 +1,59 @@
+
+//ACCEPTED BY UVA
+
+import java.io.*;
+import java.util.*;
+import java.math.*;
+import java.text.*;
+import java.lang.*;
+
+class Main {
+	public static void main(String[] args) throws Exception {
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		PrintWriter pr = new PrintWriter(new BufferedWriter(new OutputStreamWriter(System.out)));
+		String line = br.readLine();
+		int testcases = Integer.parseInt(line);
+		for (int kz = 1 ; kz <= testcases ; kz++) {
+			line = br.readLine();
+			line.replace("\\n","").replace("\\r","");
+			int max = 0;
+			int[] freq = new int[129];
+			for (int i = 0 ; i < line.length() ; i++) {
+				int curr = line.charAt(i);
+				freq[curr] += 1;
+				if (freq[curr]>max) {
+					 max = freq[curr];
+				}
+			}
+			ArrayList<Integer> primes = sieve(max);
+			String solution = "";
+			for (int i = 0 ; i < 129 ; i++) {
+				if (freq[i]>0) {
+					if (primes.contains(new Integer(freq[i]))) {
+						char k = (char)i;
+						solution += k;
+					}
+				}
+			}
+			if (solution.isEmpty()) {
+				pr.println("Case "+kz+": empty");
+			} else {
+				pr.println("Case "+kz+": "+solution);
+			}
+		}
+		pr.close();
+	}
+	static ArrayList<Integer> sieve(int n){
+		ArrayList<Integer> solution = new ArrayList<Integer>();
+		boolean[] possiblyPrime = new boolean[n+1];
+		for (int i = 2 ; i <= n ; i++) {
+			if (possiblyPrime[i]==false) {
+				solution.add(new Integer(i));
+				for (int j = i ; j <= n ; j+=i) {
+					possiblyPrime[j]=true;
+				}
+			}
+		}
+		return solution;
+	}
+}
