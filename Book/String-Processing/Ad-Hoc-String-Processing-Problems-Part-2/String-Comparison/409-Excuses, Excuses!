@@ -1,0 +1,150 @@
+
+//ACCEPTED BY UVA
+
+import java.io.*;
+import java.util.*;
+import java.math.*;
+import java.text.*;
+import java.lang.*;
+
+class Main {
+	public static void main(String[] args) throws Exception {
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		PrintWriter pr = new PrintWriter(new BufferedWriter(new OutputStreamWriter(System.out)));
+		String line = br.readLine();
+		int casee = 0;
+		while (line!=null&&!line.isEmpty()) {
+			String[] split = line.split(" ");
+			int keyword = Integer.parseInt(split[0]);
+			int excuse = Integer.parseInt(split[1]);
+			String[] keywords = new String[keyword];
+			String[] excuses = new String[excuse];
+			ArrayList<int[]> preprocesses = new ArrayList<int[]>();
+			ArrayList<char[]> patterns = new ArrayList<char[]>();
+			for (int i = 0 ; i < keyword ; i++) {
+				line = br.readLine();
+				keywords[i] = line;
+				//patterns.add(line.toCharArray());
+				//preprocesses.add(preProcessPattern(patterns.get(i)));
+			}
+			for (int i = 0 ; i < excuse ; i++) {
+				line = br.readLine();
+				excuses[i] = line;
+			}
+			//Add incidences of each keyword
+			int[] freq = new int[excuse];
+			for (int i = 0 ; i < excuse ; i++) {
+				for (int j = 0 ; j < keyword ; j++) {
+					//freq[i] += searchSubString(excuses[i].toLowerCase(),patterns.get(j),preprocesses.get(j));
+					freq[i] += naiveMatching(excuses[i].toLowerCase(),keywords[j].toLowerCase());
+				}
+			}
+			ArrayList<String> solution = new ArrayList<String>();
+			int max = -1;
+			for (int i = 0 ; i < excuse ; i++) {
+				if (freq[i]==max) {
+					solution.add(excuses[i]);
+				} else if(freq[i]>max) {
+					max = freq[i];
+					solution.clear();
+					solution.add(excuses[i]);
+				}
+			}
+			casee++;
+			pr.println("Excuse Set #"+casee);
+			for (int i = 0 ; i < solution.size(); i ++) {
+				pr.println(solution.get(i));
+			}
+			line = br.readLine();
+			pr.println();
+			//if (line==null||line.isEmpty()) {
+			//	pr.println();
+			//}
+		}
+		
+		pr.close();
+	}
+	//BETTER SUITED FOR NATURAL TEXT O(n)->O(nm)
+		  static int naiveMatching(String Text, String Pattern) {
+			  int index = 0;
+			  
+				char [] T = Text.toCharArray();
+				char [] P = Pattern.toCharArray();
+				int n = Text.length();
+				int m = Pattern.length();
+				
+			    for (int i = 0; i < n; i++) { // try all potential starting indices
+			      Boolean found = true;
+			      for (int j = 0; j < m && found; j++) // use boolean flag `found'
+			        if (i + j >= n || P[j] != T[i + j]) // if mismatch found
+			          found = false; // abort this, shift starting index i by +1
+			      if (found){ // if P[0 .. m - 1] == T[i .. i + m - 1]
+			if (i-1<0||Character.valueOf(T[i-1]).toString().matches("\\W")||Character.valueOf(T[i-1]).toString().matches("\\d")) {
+				if (i+m>=n||Character.valueOf(T[i+m]).toString().matches("\\W")||Character.valueOf(T[i+m]).toString().matches("\\d")) {
+					index++;
+				}
+			}
+			     } 
+			found=false;
+			  }
+			    return index;
+			}
+			
+	 //KMP Preprocess
+		    static int[] preProcessPattern(char[] ptrn) {
+		        int i = 0, j = -1;
+		        int ptrnLen = ptrn.length;
+		        int[] b = new int[ptrnLen + 1];
+		 
+		        b[i] = j;
+		        while (i < ptrnLen) {
+		            while (j >= 0 && ptrn[i] != ptrn[j]) {
+		                // if there is mismatch consider next widest border
+		                j = b[j];
+		            }
+		            i++;
+		            j++;
+		            b[i] = j;
+		        }
+
+		        return b;
+		    }
+		//KMP
+		    static int searchSubString(String T, char[] ptrn, int[] b) {
+		    	char [] text = T.toCharArray();
+		    	int ans=0;
+		        int i = 0, j = 0;
+		        // pattern and text lengths
+		        int ptrnLen = ptrn.length;
+		        int txtLen = text.length;
+		 
+		        // initialize new array and preprocess the pattern
+		        
+		 
+		        while (i < txtLen) {
+		            while (j >= 0 && text[i] != ptrn[j]) {
+		               /* System.out.println("Mismatch happened, between text char "
+		                        + text[i] + " and pattern char " + ptrn[j]
+		                        + ", \nhence jumping the value of " + "j from " + j
+		                        + " to " + b[j] + " at text index i at " + i
+		                        + " based on partial match table");*/
+		                j = b[j];
+		            }
+		            i++;
+		            j++;
+		 
+		            // a match is found
+		            if (j == ptrnLen) {
+		                ans++;
+		            	/*System.out.println("FOUND SUBSTRING AT i " + i + " and index:"
+		                        + (i - ptrnLen));
+		                System.out.println("Setting j from " + j + " to " + b[j]);*/
+		              j = b[j];
+		//j = 0;
+		            }
+		        }
+		        return ans;
+		    }
+		
+
+}
