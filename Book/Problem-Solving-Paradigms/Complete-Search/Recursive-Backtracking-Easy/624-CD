@@ -1,0 +1,60 @@
+
+//ACCEPTED BY UVA
+
+import java.io.*;
+import java.util.*;
+import java.math.*;
+import java.text.*;
+import java.lang.*;
+
+class Main {
+
+
+	static int[] times;
+	static int tapetime;
+	static int tracks;
+	static int totalmax = -1;
+	static ArrayList<Integer> solution = new ArrayList<Integer>();
+	
+	public static void main(String[] args) throws Exception {
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		PrintWriter pr = new PrintWriter(new BufferedWriter(new OutputStreamWriter(System.out)));
+		String line = br.readLine();
+		while (line!=null&&!line.isEmpty()) {
+			String[] split = line.split(" ");
+			tapetime = Integer.parseInt(split[0]);
+			tracks = Integer.parseInt(split[1]);
+			times = new int[tracks];
+			for (int i = 0; i < times.length; i++) {
+				times[i] = Integer.parseInt(split[2+i]);
+			}
+			totalmax = -1;
+			solution.clear();
+			recursion(tapetime, 0,0,new ArrayList<Integer>());
+			for (int i = 0; i < solution.size(); i++) {
+				pr.print(solution.get(i)+" ");
+			}
+			pr.println("sum:"+totalmax);
+			
+			line = br.readLine();
+		}
+		pr.close();
+	}
+	static void  recursion(int max,int currtrack, int sum,ArrayList<Integer> curr){
+		if(currtrack>=tracks){
+			if(sum>totalmax){
+				totalmax = sum;
+				solution = curr;
+			}
+			return;
+		}
+		recursion(max,currtrack+1,sum,(ArrayList<Integer>)curr.clone());
+		curr.add(Integer.valueOf(times[currtrack]));
+		if (sum+times[currtrack]==max) {
+			recursion(max,tracks,sum+times[currtrack],(ArrayList<Integer>)curr.clone());
+		} else if(sum+times[currtrack]<max) {
+			recursion(max,currtrack+1,sum+times[currtrack],(ArrayList<Integer>)curr.clone());
+		}
+	}
+
+}
