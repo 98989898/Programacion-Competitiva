@@ -1,0 +1,41 @@
+
+//ACCEPTED BY UVA
+
+import java.io.*;
+import java.util.*;
+import java.math.*;
+
+class Main {
+	public static void main(String[] args) throws Exception {
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		PrintWriter pr = new PrintWriter(new BufferedWriter(new OutputStreamWriter(System.out)));
+		String line = br.readLine();
+		int testcases = Integer.parseInt(line);
+		for (int kz = 1 ; kz <= testcases ; kz++) {
+			int numrungs = Integer.parseInt(br.readLine());
+			line = br.readLine();
+			String[] split = line.split("\\s+");
+			long[] rungs = new long[numrungs];
+			for (int i = 0 ; i < numrungs ; i++) {
+				rungs[i] = Long.parseLong(split[i]);
+			}
+			long ans = 0;
+			for (int i = numrungs-1 ; i > 0 ; i--) {
+				if (rungs[i]-rungs[i-1]>ans) {
+					ans = rungs[i]-rungs[i-1];
+				} else if (rungs[i]-rungs[i-1]==ans) {
+					ans++;
+				}
+			}
+			if (rungs[0]>ans) {
+				ans = rungs[0];
+			} else if (rungs[0]==ans) {
+				ans++;
+			}
+			pr.println("Case "+kz+": "+ans);
+			
+		}
+		
+		pr.close();
+	}
+}
