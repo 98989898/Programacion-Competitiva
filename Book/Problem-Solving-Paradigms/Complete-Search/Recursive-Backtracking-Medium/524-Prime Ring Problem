@@ -1,0 +1,64 @@
+
+//ACCEPTED BY UVA
+
+import java.io.*;
+import java.math.*;
+import java.util.*;
+
+	class Main {
+		static int[] array;
+		static int n;
+		static PrintWriter pr = new PrintWriter (new BufferedWriter(new OutputStreamWriter(System.out)));
+		static boolean[] primes = {true,true,false,false,true,false,true,false,true,true,true,false,true,false,true,true,true,false,true,false,true,true,true,false,true,true,true,true,true,false,true,false,true};
+
+	public static void main(String[] args) throws Exception {
+		BufferedReader br = new BufferedReader (new InputStreamReader(System.in));
+		String input = br.readLine();
+		int count = 1;
+		while (input != null && !input.isEmpty()){
+			pr.print("Case " + (count) + ":");
+			n = Integer.parseInt(input);
+			array = new int [n];
+			array[0] = 1;
+			recurssion(1);
+			
+			count++;
+			input = br.readLine();
+			pr.println();
+			if (input != null && !input.isEmpty()) {
+				pr.println();
+			}
+			
+		}
+		pr.close();
+	}
+//Starts Recurssion
+	static void recurssion (int c){
+		if (c == n){
+			if (!primes[(array[n-1]+1)]){
+				pr.println();
+				for (int j=0; j<c-1; j++){
+					pr.print(array[j]+" ");
+				}
+				pr.print(array[c-1]);
+			}
+			return;
+		}else{
+			
+			for (int i=2; i<=n; i++){
+				boolean canbeused = true;
+				for (int j=0; j<c; j++){
+					if (array[j] == i){
+						canbeused=false;
+						break;
+					}
+				}
+				if (canbeused&&!primes[(array[c-1]+ i)]) {
+					array[c] = i;
+					recurssion(c+1);
+				}
+			}
+		}
+	}
+
+}
