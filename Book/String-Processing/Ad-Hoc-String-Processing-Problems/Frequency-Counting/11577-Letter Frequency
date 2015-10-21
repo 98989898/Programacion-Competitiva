@@ -1,0 +1,48 @@
+
+//ACCEPTED BY UVA
+
+import java.io.*;
+import java.util.*;
+import java.math.*;
+import java.text.*;
+import java.lang.*;
+
+class Main {
+	public static void main(String[] args) throws Exception {
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		PrintWriter pr = new PrintWriter(new BufferedWriter(new OutputStreamWriter(System.out)));
+		String line = br.readLine();
+		int testcases = Integer.parseInt(line);
+		for (int kz = 0 ; kz < testcases ; kz++) {
+			int[] freq = new int[26];
+			ArrayList<Integer> solutions = new ArrayList<Integer>();
+			line = br.readLine().toLowerCase();
+			for (int i = 0 ; i < line.length();i++) {
+				int curr = line.charAt(i) - 'a';
+				if (curr<26 && curr>=0) {
+					freq[curr] += 1;
+				}
+			}
+			
+			int max = -1;
+			for (int i = 0 ; i <26 ; i++) {
+				if (freq[i]>max) {
+					max = freq[i];
+					solutions.clear();
+					
+				}
+				if (freq[i]==max) {
+					solutions.add(Integer.valueOf(i));
+				}
+			}
+			for (int i = 0 ; i < solutions.size() ; i++) {
+				int sol = solutions.get(i)+'a';
+				char defsol = (char)sol;
+				pr.print(defsol);
+			}
+			pr.println();
+			
+		}
+		pr.close();
+	}
+}
