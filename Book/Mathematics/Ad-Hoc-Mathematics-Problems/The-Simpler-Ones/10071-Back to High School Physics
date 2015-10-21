@@ -10,7 +10,7 @@ class Main {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		PrintWriter pr = new PrintWriter(new BufferedWriter(new OutputStreamWriter(System.out)));
 		String line = br.readLine();
-		while () {
+		while (line!=null&&!line.isEmpty()) {
 			String[] split = line.split(" ");
 			int v = Integer.parseInt(split[0]);
 			int t = Integer.parseInt(split[1]);
