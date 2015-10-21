@@ -1,0 +1,25 @@
+
+//ACCEPTED BY UVA
+
+import java.io.*;
+import java.util.*;
+import java.math.*;
+
+class Main {
+	public static void main(String[] args) throws Exception {
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		PrintWriter pr = new PrintWriter(new BufferedWriter(new OutputStreamWriter(System.out)));
+		String line = br.readLine();
+		while (line!=null&&!line.isEmpty()) {
+			String[] split = line.split(" ");
+			long a = Long.parseLong(split[0]);
+			long b = Long.parseLong(split[1]);
+			
+			pr.println(Math.abs(b-a));
+			line = br.readLine();
+
+		}
+		
+		pr.close();
+	}
+}
