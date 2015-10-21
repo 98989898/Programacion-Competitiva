@@ -1,0 +1,93 @@
+
+//ACCEPTED BY UVA
+
+import java.io.*;
+import java.util.*;
+import java.math.*;
+
+class Main {
+	static String ans;
+	static int length;
+	public static void main(String[] args) throws Exception {
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		PrintWriter pr = new PrintWriter(new BufferedWriter(new OutputStreamWriter(System.out)));
+		String line = br.readLine();
+		int casee = 1;
+		while (line!=null&&!line.equals("#")&&!line.isEmpty()) {
+			ans = "UNKNOWN";
+			length = line.length();
+			if (length==4) {
+				check4(line);
+			}else if (length==5) {
+				check5(line);
+			}else if (length==7) {
+				check7(line);
+			}else if (length==12) {
+				check12(line);
+			}
+			pr.println("Case "+casee+": "+ans);
+			casee++;
+			line = br.readLine();
+		}
+		
+		pr.close();
+	}
+	static void check4(String a){
+		boolean spanishbool = true;
+		boolean italianbool = true;
+		String spanish = "HOLA";
+		String italian = "CIAO";
+		for (int i = 0 ; i < 4 ; i++) {
+			if (a.charAt(i)!=spanish.charAt(i)) {
+				spanishbool = false;
+			}
+			if (a.charAt(i)!=italian.charAt(i)) {
+				italianbool = false;
+			}
+		}
+		if (italianbool) {
+			ans = "ITALIAN";
+		}
+		if (spanishbool) {
+			ans = "SPANISH";
+		}
+	}
+	static void check5(String a){
+		boolean englishbool = true;
+		boolean germanbool = true;
+		String english = "HELLO";
+		String german = "HALLO";
+		for (int i = 0 ; i < 5 ; i++) {
+			if (a.charAt(i)!=english.charAt(i)) {
+				englishbool = false;
+			}
+			if (a.charAt(i)!=german.charAt(i)) {
+				germanbool = false;
+			}
+		}
+		if (englishbool) {
+			ans = "ENGLISH";
+		}
+		if (germanbool) {
+			ans = "GERMAN";
+		}
+	}
+	static void check7(String a){
+		String french = "BONJOUR";
+		for (int i = 0 ; i < 7 ; i++) {
+			if (a.charAt(i)!=french.charAt(i)) {
+				return;
+			}
+		}
+		ans = "FRENCH";
+	}
+	static void check12(String a){
+		String russian = "ZDRAVSTVUJTE";
+		for (int i = 0 ; i < 12 ; i++) {
+			if (a.charAt(i)!=russian.charAt(i)) {
+				return;
+			}
+		}
+		ans = "RUSSIAN";
+	}
+}
