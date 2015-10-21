@@ -1,0 +1,23 @@
+
+//ACCEPTED BY UVA
+
+import java.io.*;
+import java.util.*;
+import java.math.*;
+
+class Main {
+	public static void main(String[] args) throws Exception {
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		PrintWriter pr = new PrintWriter(new BufferedWriter(new OutputStreamWriter(System.out)));
+		String line = br.readLine();
+		while () {
+			String[] split = line.split(" ");
+			int v = Integer.parseInt(split[0]);
+			int t = Integer.parseInt(split[1]);
+			
+			pr.println(v*2*t);
+			line = br.readLine();
+		}
+		pr.close();
+	}
+}
