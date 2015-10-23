@@ -1,0 +1,40 @@
+
+//ACCEPTED BY UVA
+
+import java.io.*;
+import java.util.*;
+import java.math.*;
+
+//(K-1+P)(mod N) +1
+class Main {
+	public static void main(String[] args) throws Exception {
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		PrintWriter pr = new PrintWriter(new BufferedWriter(new OutputStreamWriter(System.out)));
+		String line = br.readLine();
+		int testcases = Integer.parseInt(line);
+		for (int kz = 1 ; kz <= testcases ; kz++) {
+			String[] split;
+			int max = -1;
+			ArrayList<String> solution  = new ArrayList<String>();
+			for (int i = 0 ; i < 10 ; i++) {
+				line = br.readLine();
+				split = line.split(" ");
+				int curr = Integer.parseInt(split[1]);
+				if (curr==max) {
+					solution.add(split[0]);
+				} else if (curr>max) {
+					solution.clear();
+					solution.add(split[0]);
+					max = curr;
+				}
+			}
+			
+			pr.println("Case #"+kz+":");
+			for (int i = 0 ; i < solution.size() ; i++) {
+				pr.println(solution.get(i));
+			}
+		}
+		
+		pr.close();
+	}
+}
