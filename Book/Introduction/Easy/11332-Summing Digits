@@ -1,0 +1,34 @@
+
+//ACCEPTED BY UVA
+
+import java.io.*;
+import java.util.*;
+import java.math.*;
+
+class Main {
+	public static void main(String[] args) throws Exception {
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		PrintWriter pr = new PrintWriter(new BufferedWriter(new OutputStreamWriter(System.out)));
+		String line = br.readLine();
+		while (line!=null&&!line.equals("0")&&!line.isEmpty()) {
+			int k = Integer.parseInt(line);
+			int length = line.length();
+			while (k>=10) {
+				int sum = 0;
+				for (int i = 0 ; i < length ; i++) {
+					int a = Integer.parseInt(line.substring(i,i+1));
+					sum += a;
+				}
+				k = sum;
+				line = k+"";
+				length = line.length();
+			}
+			
+			pr.println(line);
+			
+			line = br.readLine();
+		}
+		
+		pr.close();
+	}
+}
