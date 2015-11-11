@@ -1,0 +1,36 @@
+
+//ACCEPTED BY UVA
+
+import java.io.*;
+import java.util.*;
+import java.math.*;
+
+class Main {
+	public static void main(String[] args) throws Exception {
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		PrintWriter pr = new PrintWriter(new BufferedWriter(new OutputStreamWriter(System.out)));
+		String line = br.readLine();
+		int testcases = Integer.parseInt(line);
+		for (int kz = 1 ; kz <= testcases ; kz++) {
+			line = br.readLine();
+			int number = Integer.parseInt(line);
+			int[] numbers = new int[number];
+			line = br.readLine();
+			String[] split = line.split(" ");
+			for (int i = 0 ; i < number ; i++) {
+				numbers[i] = Integer.parseInt(split[i]);
+			}
+			int sum = 0;
+			for (int i = 1 ; i < number; i++) {
+				for (int j = 0 ; j < i; j++) {
+					if (numbers[j]<=numbers[i]) {
+						sum++;
+					}
+				}
+			}
+			pr.println(sum);
+		}
+		
+		pr.close();
+	}
+}
