@@ -1,0 +1,44 @@
+
+//ACCEPTED BY UVA
+
+import java.io.*;
+
+import java.util.*;
+
+
+
+class Main {
+	public static void main(String[] args) throws Exception {
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		PrintWriter pr = new PrintWriter(new BufferedWriter(new OutputStreamWriter(System.out)));
+		String line = br.readLine();
+		while (line!=null) {
+			String a = line;
+			String b = br.readLine();
+			int[] abc = new int[26];
+			int[] cba = new int[26];
+			for (int i = 0 ; i < a.length() ; i++) {
+				int curr = a.charAt(i)-'a';
+				abc[curr] += 1;
+			}
+			for (int i = 0 ; i < b.length() ; i++) {
+				int curr = b.charAt(i)-'a';
+				cba[curr] += 1;
+			}
+			String solutionfinal = "";
+			for (int i = 0 ; i < 26 ; i++) {
+				while (abc[i]>0&&cba[i]>0) {
+					int sol = i+'a';
+					char defsol = (char)sol;
+					solutionfinal = solutionfinal + defsol;
+					abc[i]--;
+					cba[i]--;
+				}
+			}
+			pr.println(solutionfinal);
+			line = br.readLine();
+		}
+		
+		pr.close();
+	}
+}
