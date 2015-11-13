@@ -1,0 +1,67 @@
+
+//ACCEPTED BY UVA
+
+import java.io.*;
+import java.util.*;
+import java.math.*;
+
+class Main {
+	public static int[] vessels;
+	public static int containers;
+	public static int vessel;
+			
+	public static void main(String[] args) throws Exception {
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		PrintWriter pr = new PrintWriter(new BufferedWriter(new OutputStreamWriter(System.out)));
+		String line = br.readLine();
+		while (line!=null&&!line.isEmpty()) {
+			String[] split = line.split(" ");
+			vessel = Integer.parseInt(split[0]);
+			containers = Integer.parseInt(split[1]);
+			vessels = new int[vessel];
+			long high = 0;
+			line = br.readLine();
+			split = line.split(" ");
+			for (int i = 0 ; i < vessel ; i++) {
+				vessels[i] = Integer.parseInt(split[i]);
+				high += vessels[i];
+			}
+			long low = vessels[0];
+			long mid;
+			while (low<high) {
+				mid = (high + low)/2;
+				boolean result = test(mid);
+				if (!result) {
+					low = mid + 1;
+				} else {
+					high = mid;
+				}
+			}
+			pr.println(high);
+			
+			line = br.readLine();
+		}
+		
+		pr.close();
+	}
+	
+	public static boolean test(long m){
+		long container = 0;
+		long containercapacity = m;
+		for (int i = 0 ; i < vessel; i++) {
+			if (vessels[i]>m) {
+				return false;
+			}
+			if (containercapacity>=vessels[i]) {
+				containercapacity -= vessels[i];
+			} else {
+				container++;
+				containercapacity = m - vessels[i];
+			}
+			if (container>=containers) {
+				return false;
+			}
+		}
+		return true;
+	}
+}
