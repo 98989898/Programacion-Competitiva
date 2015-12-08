@@ -1,0 +1,112 @@
+
+//ACCEPTED BY UVA
+
+import java.io.*;
+import java.util.*;
+import java.math.*;
+import java.text.*;
+
+class Main {
+	static int currsol;
+	static int[] x;
+	static int[] y;
+	static int planes;
+	public static void main(String[] args) throws Exception {
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		PrintWriter pr = new PrintWriter(new BufferedWriter(new OutputStreamWriter(System.out)));
+		String line = br.readLine();
+		int counter = 0;
+		while (line!=null&&!line.equals("0")&&!line.isEmpty()) {
+			//System.out.println(line);
+			counter++;
+			planes = Integer.parseInt(line);
+			if (planes==0) {
+				break;
+			}
+			x = new int[planes];
+			y = new int[planes];
+			ArrayList<Integer> left = new ArrayList<Integer>();
+			currsol = 0;
+			for (int i = 0 ; i < planes ; i++) {
+				line = br.readLine();
+				String[] split = line.split("\\s+");
+				//System.out.println(line);
+				x[i] = Integer.parseInt(split[0])*600;
+				y[i] = Integer.parseInt(split[1])*600;
+				left.add(new Integer(i));
+			}
+			permutation(new int[planes],planes,left);
+			int hours = currsol/600;
+			int minutes = currsol%600;
+			double mins = (double)minutes/10;
+			DecimalFormat df = new DecimalFormat("#");
+			df.setRoundingMode(RoundingMode.HALF_UP);
+			String min = df.format(mins)+"";
+			if (min.length()==1) {
+				pr.println("Case "+counter+": "+hours+":0"+min);
+			} else {
+				pr.println("Case "+counter+": "+hours+":"+min);
+			}
+			
+			
+			line = br.readLine();
+			
+		}
+		
+		pr.close();
+	}
+	static void permutation(int[] curr,int planesleft, ArrayList<Integer> numleft){
+		if (planesleft==0) {
+			binary(curr);
+		}
+		for (int i = 0 ; i < planesleft;i++) {
+			curr[planesleft-1] = numleft.get(i);
+			ArrayList<Integer> toMethod = (ArrayList<Integer>)numleft.clone();
+			toMethod.remove(i);
+			permutation(curr,planesleft-1,toMethod);
+		}
+	}
+	static void binary(int[] curr){
+		int low = 0;
+		int high = 864000;
+		int mid;
+		while (low<high) {
+			mid = (high+low)/2;
+			//System.out.println(curr[0]+","+curr[1]);
+			//System.out.println(mid);
+			//System.out.println(check(curr, mid, 0,0));
+			if (low == mid) {
+				mid++;
+			}
+			if(check(curr, mid, 0,0)){
+				low = mid;
+			} else {
+				high = mid -1;
+			}
+		}
+		if (low > currsol) {
+			currsol = low;
+		}
+	}
+	static boolean check(int[] curr,int k, int plane,int lastend){
+		if (plane>=planes) {
+			return true;
+		}
+		int currpos = x[curr[plane]];
+		if(plane == 0){
+			return check(curr,k,plane+1,currpos);
+		}
+		lastend +=k;
+		if (lastend>currpos) {
+			currpos = lastend;
+		}
+		//System.out.println(currpos);
+		//System.out.println("y:"+y[curr[plane]]);
+		if (currpos>y[curr[plane]]) {
+			return false;
+		} else {
+			return check(curr,k,plane+1,currpos);
+		}
+	}
+}
+
