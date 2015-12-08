@@ -1,0 +1,82 @@
+
+//ACCEPTED BY UVA
+
+import java.io.*;
+import java.util.*;
+import java.math.*;
+import java.text.*;
+
+class Main {
+	static int[] houses;
+	static int routers;
+	static int house;
+	public static void main(String[] args) throws Exception {
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		PrintWriter pr = new PrintWriter(new BufferedWriter(new OutputStreamWriter(System.out)));
+		String line = br.readLine();
+		int testcases = Integer.parseInt(line);
+		line = br.readLine();
+		for(int kz = 0 ; kz < testcases ; kz++) {
+			String[] split = line.split(" ");
+			routers = Integer.parseInt(split[0]);
+			house = Integer.parseInt(split[1]);
+			houses = new int[house];
+			for (int i = 0 ; i < house ; i++) {
+				line = br.readLine();
+				houses[i] = Integer.parseInt(line)*100;
+			}
+			Arrays.sort(houses);
+			double sol = (double)binary()/100;
+			DecimalFormat df = new DecimalFormat("0.0");
+			df.setRoundingMode(RoundingMode.HALF_UP);
+			pr.println(df.format(sol));
+			
+			line = br.readLine();
+		}
+		
+		pr.close();
+	}
+	public static int binary(){
+		int low = 0;
+		int high = 100000100;
+		int mid;
+		boolean found = false;
+		while (low<high) {
+			mid = (high + low)/2;
+			if (check(mid)) {
+				found = true;
+				high = mid;
+			} else {
+				low = mid +1;
+			}
+		}
+		if (found) {
+			return low;
+		} else {
+			return -1;
+		}
+	}
+	public static boolean check(int k){
+		if (routers==0&&house>0) {
+			return false;
+		}
+		int routersleft = routers;
+		int currpos = k;
+		if (houses.length!=0) {
+			currpos = houses[0]+k*2;
+			routersleft--;
+		} else {
+			return true;
+		}
+		for (int i = 1 ; i < house ; i++) {
+			if (houses[i]>currpos) {
+				currpos = houses[i]+2*k;
+				routersleft--;
+			}
+			if (routersleft<0) {
+				return false;
+			}
+		}
+		return true;
+	}
+}
