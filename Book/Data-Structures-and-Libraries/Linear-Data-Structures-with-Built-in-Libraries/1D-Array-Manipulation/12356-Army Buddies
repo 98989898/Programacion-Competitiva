@@ -1,0 +1,52 @@
+
+//ACCEPTED BY UVA
+
+import java.io.*;
+import java.util.*;
+import java.math.*;
+import java.text.*;
+
+class Main {
+	public static void main(String[] args) throws Exception {
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		PrintWriter pr = new PrintWriter(new BufferedWriter(new OutputStreamWriter(System.out)));
+		String line = br.readLine();
+		while (line!=null&&!line.isEmpty()&&!line.equals("0 0")) {
+			String[] split = line.split(" ");
+			int soldiers = Integer.parseInt(split[0]);
+			int cases = Integer.parseInt(split[1]);
+			int[][] neighbors = new int[soldiers][2];
+			for (int i = 0 ; i < soldiers ; i++) {
+				neighbors[i][0] = i-1;//keeps track of left neighbors
+				neighbors[i][1] = i+1;//keeps track of right neighbors
+			}
+			for (int i = 0 ; i < cases ; i++) {
+				line = br.readLine();
+				split = line.split(" ");
+				int a = Integer.parseInt(split[0]);
+				int b = Integer.parseInt(split[1]);
+				int sola = neighbors[a-1][0]+1;
+				int solb = neighbors[b-1][1]+1;
+				
+				if (sola<=0) {
+					pr.print("* ");
+				} else {
+					neighbors[sola-1][1] = solb - 1;
+					pr.print(sola+" ");
+				}
+				if (solb>soldiers) {
+					pr.println("*");
+				} else {
+					pr.println(solb);
+					neighbors[solb-1][0] = sola - 1;
+
+				}
+			}
+			pr.println("-");
+			
+			line = br.readLine();
+		}
+		
+		pr.close();
+	}
+}
