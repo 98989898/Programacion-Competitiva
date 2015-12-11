@@ -1,0 +1,65 @@
+
+//ACCEPTED BY UVA
+
+import java.io.*;
+import java.util.*;
+import java.math.*;
+import java.text.*;
+
+class Main {
+	public static void main(String[] args) throws Exception {
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		PrintWriter pr = new PrintWriter(new BufferedWriter(new OutputStreamWriter(System.out)));
+		String line = br.readLine();
+		while (line!=null&&!line.isEmpty()&&!line.equals("0 0")) {
+			String[] split = line.split(" ");
+			int bigSize = Integer.parseInt(split[0]);
+			int smallSize = Integer.parseInt(split[1]);
+			char[][] bigArr = new char[bigSize][];
+			char[][] smallArr = new char[smallSize][];
+			char[][] tempCopy = new char[smallSize][];
+			for (int i = 0 ; i < bigSize ; i++) {
+				line = br.readLine();
+			 	bigArr[i] = line.toCharArray();
+			}
+			for (int i = 0 ; i < smallSize ; i++) {
+				line = br.readLine();
+				smallArr[i] = line.toCharArray();
+			}
+			int[] sol = new int[4];
+			for (int rot = 0; rot<4 ; rot++) {
+				for (int i = 0 ; i <= bigSize-smallSize ;i++) {
+					for (int j = 0 ; j <= bigSize-smallSize;j++) {
+						if (bigArr[i][j]==smallArr[0][0]) {
+							boolean mismatch = false;
+							for (int k = 0;k<smallSize&&!mismatch;k++) {
+								for (int b = 0;b<smallSize&&!mismatch;b++) {
+									if (bigArr[i+k][j+b]!=smallArr[k][b]) {
+										mismatch = true;
+									}
+								}
+							}
+							if (!mismatch) {
+								sol[rot]++;
+							}
+						}
+					}
+				}
+				for (int c = 0 ; c <smallSize ; c++) {
+					tempCopy[c] = Arrays.copyOf(smallArr[c],smallSize);
+				}
+				for (int d = 0 ; d < smallSize ; d++) {
+					for (int e = 0 ; e < smallSize;e++) {
+						smallArr[smallSize-e-1][d] = tempCopy[d][e];
+					}
+				}
+				
+			}
+			pr.println(sol[0]+" "+sol[3]+" "+sol[2]+" "+sol[1]);
+			
+			line = br.readLine();
+		}
+		
+		pr.close();
+	}
+}
