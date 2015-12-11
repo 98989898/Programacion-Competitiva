@@ -1,0 +1,43 @@
+
+//ACCEPTED BY UVA
+
+import java.io.*;
+import java.util.*;
+import java.math.*;
+import java.text.*;
+
+class Main {
+	public static void main(String[] args) throws Exception {
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		PrintWriter pr = new PrintWriter(new BufferedWriter(new OutputStreamWriter(System.out)));
+		String line = br.readLine();
+		int counter=0;
+		int[] nums = new int[10002];
+		while (line!=null&&!line.isEmpty()) {
+			line = line.trim();
+			String[] split = line.split("\\s+");
+			
+			for (int i = 0 ; i < split.length ; i++) {
+				int curr = Integer.parseInt(split[i]);
+				
+				int search = counter;
+				while (search>0 &&nums[search-1]<curr) {
+					nums[search] = nums[search-1];
+					search--;
+				}
+				nums[search]=curr;
+				counter++;
+	
+				if (counter%2==0) {
+					pr.println((nums[counter/2]+nums[counter/2-1])/2);
+				} else {
+					pr.println(nums[counter/2]);
+				}
+				line = br.readLine();
+// 0 1 2 3 4/2=2
+			}
+		}
+		
+		pr.close();
+	}
+}
