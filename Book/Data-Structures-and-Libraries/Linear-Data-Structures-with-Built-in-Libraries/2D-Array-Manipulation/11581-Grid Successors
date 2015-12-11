@@ -1,0 +1,103 @@
+
+//ACCEPTED BY UVA
+
+import java.io.*;
+import java.util.*;
+import java.math.*;
+import java.text.*;
+
+class Main {
+	public static void main(String[] args) throws Exception {
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		PrintWriter pr = new PrintWriter(new BufferedWriter(new OutputStreamWriter(System.out)));
+		String line = br.readLine();
+		int testcases = Integer.parseInt(line);
+		for (int kz = 0 ; kz < testcases ;kz++) {
+			br.readLine();
+			int a=Integer.parseInt(br.readLine(),2)<<7;
+			a|=Integer.parseInt(br.readLine(),2)<<4;
+			a|=Integer.parseInt(br.readLine(),2)<<1;
+			int[] previous = new int[515];
+			previous[0] = a;
+			boolean found = false;
+			int counter = 0;
+			int sol = -1;
+			while (!found) {
+				counter++;
+				
+				//First cell
+				int curr = 0;
+				int b = a<<1;
+				int c = a<<3;
+				int cast = 1<<9;
+				curr |= cast&(b^c);
+				
+				//First row, second column
+				b=a>>1;
+				c=a<<3;
+				int d = a<<1;
+				cast=1<<8;
+				curr|=cast&(b^c^d);
+				
+				//First row, third column
+				b=a>>1;
+				c=a<<3;
+				cast=1<<7;
+				curr|=cast&(b^c);
+				
+				//Second row, first col
+				b=a>>3;
+				c=a<<3;
+				d=a<<1;
+				cast=1<<6;
+				curr|=cast&(b^c^d);
+				
+				//Second row, second col
+				b=a>>3;
+				c=a<<3;
+				d=a>>1;
+				int e = a<<1;
+				cast=1<<5;
+				curr|=cast&(b^c^d^e);
+				
+				//Second row, third col
+				b=a<<3;
+				c=a>>3;
+				d=a>>1;
+				cast=1<<4;
+				curr|=cast&(b^c^d);
+				
+				//Third row, first col
+				b=a>>3;
+				c=a<<1;
+				cast=1<<3;
+				curr|=cast&(b^c);
+				
+				//Third row, second column
+				b=a>>3;
+				c=a<<1;
+				d=a>>1;
+				cast=1<<2;
+				curr|=cast&(b^c^d);
+				
+				//Last
+				b=a>>3;
+				c=a>>1;
+				cast=2;
+				curr|=cast&(b^c);
+				for (int i = 0 ; i < counter ; i++) {
+					if (previous[i]==curr) {
+						sol = i-1;
+						found=true;
+						break;
+					}
+				}
+				previous[counter] = curr;
+				a=curr;
+			}
+			pr.println(sol);
+		}
+		
+		pr.close();
+	}
+}
