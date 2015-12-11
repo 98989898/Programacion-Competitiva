@@ -1,0 +1,109 @@
+
+//ACCEPTEDY BY UVA
+
+import java.io.*;
+import java.util.*;
+import java.math.*;
+import java.text.*;
+
+class Main {
+	public static void main(String[] args) throws Exception {
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		PrintWriter pr = new PrintWriter(new BufferedWriter(new OutputStreamWriter(System.out)));
+		String line = br.readLine();
+		int testcases= Integer.parseInt(line);
+		br.readLine();
+		for (int kz = 0 ; kz < testcases ; kz++) {
+			line = br.readLine();
+			Student[] arr = new Student[102];
+			while (line!=null&&!line.isEmpty()) {
+				String[] split = line.split(" ");
+				int stud = Integer.parseInt(split[0]);
+				int prob = Integer.parseInt(split[1]);
+				int time = Integer.parseInt(split[2]);
+				char sol = split[3].charAt(0);
+				if (arr[stud]==null) {
+					arr[stud] = new Student(stud,prob,time,sol);
+				} else {
+					arr[stud].sub(stud,prob,time,sol);
+				}
+				line = br.readLine();
+				
+			}
+			ArrayList<Student> sol = new ArrayList<Student>();
+			for (int i = 1;i<=100;i++) {
+				if (arr[i]!=null) {
+					sol.add(arr[i]);
+				}
+			}
+			Collections.sort(sol,new MyComparator());
+			for (int i = 0 ; i < sol.size();i++) {
+				Student curr = sol.get(i);
+				pr.println(curr.getNum()+" "+curr.getCorrect()+" "+curr.getTime());
+			}
+			if ( kz+1 < testcases) {
+				pr.println();
+			}
+		}
+		
+		pr.close();
+	}
+}
+class Student {
+	int number;
+	boolean[] solved;
+	int[] penalty;
+	int correct;
+	int acumulatedTime;
+	
+	public Student(int num,int i,int timeP,char sub){
+		this.number = num;
+		solved = new boolean[10];
+		penalty = new int[10];
+		acumulatedTime = 0;
+		correct = 0;
+		//System.out.println("i:"+i+sub);
+		if (sub=='C') {
+			this.solved[i]=true;
+			acumulatedTime += penalty[i]+timeP;
+			correct++;
+		} else if (sub=='I') {
+			this.penalty[i]+=20;
+			//System.out.println("hello");
+		}
+	}
+	public void sub(int num, int i, int timeP, char sub){
+		if (this.number!=num) {
+			System.out.println("Error");
+		}
+		if (!this.solved[i]) {
+			if (sub=='C') {
+				this.solved[i]=true;
+				acumulatedTime += penalty[i]+timeP;
+				correct++;
+			} else if (sub=='I') {
+				this.penalty[i]+=20;
+			}
+		}
+	}
+	public int getCorrect(){
+		return this.correct;
+	}
+	public int getNum(){
+		return this.number;
+	}
+	public int getTime(){
+		return acumulatedTime;
+	}
+}
+class MyComparator implements Comparator<Student>{
+	public int compare(Student a , Student b){
+		if (a.getCorrect()>b.getCorrect()) {
+			return -1;
+		} else if (a.getCorrect()<b.getCorrect()) {
+			return 1;
+		} else {
+			return a.getTime()-b.getTime();
+		}
+	}
+}
