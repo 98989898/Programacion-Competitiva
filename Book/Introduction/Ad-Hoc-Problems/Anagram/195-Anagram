@@ -1,0 +1,83 @@
+
+//TLE ON UVA
+
+import java.io.*;
+import java.util.*;
+import java.math.*;
+import java.text.*;
+
+class Main {
+   static ArrayList<String> permutations;
+   public static void main(String[] args) throws Exception {
+      BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+      PrintWriter pr = new PrintWriter(new BufferedWriter(new OutputStreamWriter(System.out)));
+      String line = br.readLine();
+      int testcases = Integer.parseInt(line);
+      for (int kz = 0 ; kz < testcases ; kz++) {
+         line = br.readLine();
+         permutations = new ArrayList<String>();
+         ArrayList<Character> left = new ArrayList<Character>();
+         for (int i = 0 ; i < line.length() ; i++) {
+            left.add(new Character(line.charAt(i)));
+         }
+         Collections.sort(left);
+         permutate(left,"");
+         Collections.sort(permutations,new MyComparator());
+         String last = "";
+         if (permutations.size()>0) {
+            last = permutations.get(0);
+            pr.println(last);
+         }
+         for (int k = 1 ; k < permutations.size(); k++) {
+            String curr = permutations.get(k);
+            if (!last.equals(curr)) {
+               last = curr;
+               pr.println(curr);
+            }
+         }
+      }
+      
+      pr.close();
+   }
+   public static void permutate(ArrayList<Character> line, String curr){
+      if (line.size()==0) {
+         permutations.add(curr);
+      }
+      for (int i = 0 ; i < line.size() ; i++) {
+         ArrayList<Character> clone = (ArrayList<Character>)line.clone();
+         clone.remove(i);
+         permutate(clone, curr+line.get(i));
+         
+      }
+   }
+}
+class MyComparator implements Comparator<String>{
+   char[] index = {'A','a','B','b','C','c','D','d','E','e','F','f','G','g','H','h','I','i','J','j','K','k','L','l','M','m','N','n','O','o','P','p','Q','q','R','r','S','s','T','t','U','u','V','v','W','w','X','x','Y','y','Z','z'};
+   public int compare(String a, String b){
+      for (int j = 0 ; j < a.length() ; j++) {
+         char aa = a.charAt(j);
+         char bb = b.charAt(j);
+         int aaa = 0;
+         int bbb = 0;
+         for (int i = 0 ; i<52; i++) {
+            if (index[i]==aa) {
+               aaa = i ;
+               break;
+            }
+         }
+         for (int i = 0 ; i<52; i++) {
+            if (index[i]==bb) {
+               bbb = i;
+               break;
+            }
+         }
+         if (aaa>bbb) {
+            return 1;
+         }
+         if (bbb>aaa) {
+            return -1;
+         }
+      }
+      return 0;
+   }
+}
