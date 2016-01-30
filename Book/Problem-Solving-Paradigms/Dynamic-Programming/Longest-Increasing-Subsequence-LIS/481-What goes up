@@ -1,0 +1,62 @@
+
+//ACCEPTED BY UVA
+//HEAVY USE OF ANCHETAS ALGORITHM
+
+import java.io.*;
+import java.util.*;
+import java.math.*;
+import java.text.*;
+
+class Main {
+	public static PrintWriter pr;
+	public static void main(String[] args) throws Exception {
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		pr = new PrintWriter(new BufferedWriter(new OutputStreamWriter(System.out)));
+		ArrayList<Integer>A = new ArrayList<Integer>();
+			 
+			 String input = br.readLine();
+			 while (input!=null && !input.isEmpty()){
+				 A.add(Integer.parseInt(input));
+				 input = br.readLine();
+			 }
+			  
+		    final int MAX_N = 10000000;
+		    int n = A.size();
+		    int[] L_id = new int[MAX_N], P = new int[MAX_N];
+		    Vector<Integer> L = new Vector<Integer>();
+		//Notas JuanK
+		//L es lista de elementos ordenada
+		//L_id es la identidad correspondiente en A
+		//P es la solución de la secuencia
+		//pos es la nueva posición del elemento de A en L
+
+		    int lis = 0, lis_end = 0;
+		    for (int i = 0; i < n; ++i) {
+		      int pos = Collections.binarySearch(L, A.get(i));
+		      if (pos < 0) pos = -(pos + 1); // some adjustments are needed
+		      if (pos >= L.size()) L.add(A.get(i));
+		      else                 L.set(pos, A.get(i));
+		      L_id[pos] = i;
+		      P[i] = pos > 0 ? L_id[pos - 1] : -1;
+		      if (pos + 1 >= lis) {//el igual en el if asegura que se imprima la última LIS…(si se quita el algo imprime la primera, también se debe cambiar el L_id y más)
+		        lis = pos + 1;
+		        lis_end = i;
+		      }
+
+		    }
+		    reconstruct_print(lis_end, A, P);
+			pr.close();
+		  }
+		  
+		  static void reconstruct_print(int end, ArrayList<Integer> a, int[] p) {
+			    int x = end;
+			    Stack<Integer> s = new Stack();
+			    for (; p[x] >= 0; x = p[x]) s.push(a.get(x));
+			   System.out.println(s.size()+1);
+			   System.out.println("-");
+			   System.out.println(a.get(x));
+			    for (; !s.isEmpty(); s.pop()) pr.println(s.peek());
+			  }
+
+		
+}
