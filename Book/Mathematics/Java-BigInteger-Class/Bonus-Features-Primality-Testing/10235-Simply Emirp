@@ -1,0 +1,31 @@
+
+//ACCEPTED BY UVA
+
+import java.io.*;
+import java.util.*;
+import java.math.*;
+import java.text.*;
+
+class Main {
+	public static void main(String[] args) throws Exception {
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		PrintWriter pr = new PrintWriter(new BufferedWriter(new OutputStreamWriter(System.out)));
+		String line = br.readLine();
+		while (line!=null&&!line.isEmpty()) {
+			String reverse = new StringBuilder(line).reverse().toString();
+			if (new BigInteger(line).isProbablePrime(30)) {
+				if ((!line.equals(reverse))&&new BigInteger(reverse).isProbablePrime(30)) {
+					pr.println(line+" is emirp.");
+				} else {
+					pr.println(line+" is prime.");
+				}
+			} else {
+				pr.println(line+" is not prime.");
+			}
+			
+			line = br.readLine();
+		}
+		
+		pr.close();
+	}
+}
