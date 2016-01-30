@@ -1,0 +1,31 @@
+
+//ACCEPTED BY UVA
+
+import java.io.*;
+import java.util.*;
+import java.math.*;
+import java.text.*;
+
+class Main {
+	public static void main(String[] args) throws Exception {
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		PrintWriter pr = new PrintWriter(new BufferedWriter(new OutputStreamWriter(System.out)));
+		String line = br.readLine();
+		while (line!=null&&!line.equals("")) {
+			String[] split = line.split(" ");
+			int cow = Integer.parseInt(split[0]);
+			int car = Integer.parseInt(split[1]);
+			int show = Integer.parseInt(split[2]);
+			int wins = cow*car+car*car - car;
+			int lose = cow*(cow-1-show)+car*(cow-show);
+			double p = ((double) wins)/(wins+lose);
+			DecimalFormat df = new DecimalFormat("0.00000");
+			df.setRoundingMode(RoundingMode.HALF_UP);
+			pr.println(df.format(p));
+			
+			line = br.readLine();
+		}
+		
+		pr.close();
+	}
+}
