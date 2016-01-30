@@ -1,0 +1,48 @@
+
+//ACCEPTED BY UVA
+
+import java.io.*;
+import java.util.*;
+import java.math.*;
+import java.text.*;
+
+class Main {
+	public static void main(String[] args) throws Exception {
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		PrintWriter pr = new PrintWriter(new BufferedWriter(new OutputStreamWriter(System.out)));
+		String line = br.readLine();
+		while (line!=null&&!line.equals("0")) {
+			int pages = Integer.parseInt(line);
+			pr.println("Printing order for "+pages+" pages:");
+			int sheets = (pages+3)/4;
+			if (pages == 1) {
+				pr.println("Sheet 1, front: Blank, 1");
+				line = br.readLine();
+				continue;
+			}
+			for (int i = 1 ; i <= sheets ; i++) {
+				pr.print("Sheet "+ i +", front: ");
+				if (sheets*4-2*(i-1)>pages) {
+					pr.print("Blank, ");
+				} else {
+					pr.print(sheets*4-2*(i-1)+", ");
+				}
+				if ((i-1)*2>=pages) {
+					pr.println("Blank");
+				} else {
+					pr.println((i-1)*2+1);
+				}
+				
+				pr.print("Sheet "+ i +", back : "+i*2+", ");
+				if (sheets*4-2*(i-1)-1>pages) {
+					pr.println("Blank");
+				} else {
+					pr.println(sheets*4-2*(i-1)-1);
+				}
+			}
+			line = br.readLine();
+		}
+		
+		pr.close();
+	}
+}
