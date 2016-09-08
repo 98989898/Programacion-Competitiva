@@ -1,0 +1,30 @@
+// NOT ACCEPTED BY UVA WRONG ANSWER
+
+import java.io.*;
+import java.util.*;
+import java.math.*;
+import java.text.*;
+
+class Main {
+	public static void main(String[] args) throws Exception {
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		PrintWriter pr = new PrintWriter(new BufferedWriter(new OutputStreamWriter(System.out)));
+		String line = br.readLine();
+		int testcases = Integer.parseInt(line);
+		for (int kz = 0 ; kz < testcases ; kz++) {
+			line = br.readLine();
+			String[] split = line.split("\\s+");
+			double d = Double.parseDouble(split[0]);
+			double l = Double.parseDouble(split[1]);
+			double area = 0;
+			if (l>d) {
+				area = 2*Math.acos(0)*(d/2+(l-d)/2)*(Math.sqrt(l*l/4-d*d/4));
+			}
+			DecimalFormat df = new DecimalFormat("#.000");
+			//df.setRoundingMode(RoundingMode.HALF_UP);
+				pr.println(df.format(area));	
+		}
+		
+		pr.close();
+	}
+}
