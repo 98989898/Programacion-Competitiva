@@ -1,0 +1,62 @@
+//ACCEPTED BY JUDGE
+
+import java.io.*;
+import java.util.*;
+import java.math.*;
+import java.text.*;
+
+class Main {
+	public static void main(String[] args) throws Exception {
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		PrintWriter pr = new PrintWriter(new BufferedWriter(new OutputStreamWriter(System.out)));
+		String line = br.readLine();
+		int testcases = Integer.parseInt(line);
+		for (int kz = 0 ; kz < testcases ; kz++) {
+			line = br.readLine();
+			int record = Integer.parseInt(line);
+			double maxspeed = -1;
+			xt[] arr = new xt[record];
+			for (int i = 0 ; i < record ; i++) {
+				line = br.readLine();
+				String[] split = line.split("\\s+");
+				arr[i] = new xt((int)Integer.parseInt(split[0]),(int)Integer.parseInt(split[1]));
+			}
+			Arrays.sort(arr,new MyComparator());
+			for (int i = 1 ; i < record ; i++) {
+				double curr = Math.abs(((double)(arr[i].x-arr[i-1].x))/(arr[i].t-arr[i-1].t));
+				//System.out.println(curr);
+				if (curr>maxspeed) {
+					maxspeed = curr;
+				}
+			}
+			DecimalFormat df = new DecimalFormat("#.00");
+			df.setRoundingMode(RoundingMode.HALF_UP);
+			pr.print("Case #"+(kz+1)+": ");
+			
+			pr.println(df.format(maxspeed));	
+		}
+		
+		pr.close();
+	}
+}
+class MyComparator implements Comparator<xt> {
+	public int compare(xt a, xt b)
+	{
+		if (a.t<b.t) {
+			return -1;
+		} else if (b.t<a.t) {
+			return 1;
+		} else {
+			return 0;
+		}
+	}
+}
+class xt {
+	public int t;
+	public int x;
+	
+	public xt(int t , int x){
+		this.t=t;
+		this.x=x;
+	}
+}
