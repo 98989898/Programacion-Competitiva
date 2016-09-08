@@ -1,0 +1,37 @@
+\\ACCEPTED BY UVA
+
+import java.io.*;
+import java.util.*;
+import java.math.*;
+import java.text.*;
+
+class Main {
+	public static void main(String[] args) throws Exception {
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		PrintWriter pr = new PrintWriter(new BufferedWriter(new OutputStreamWriter(System.out)));
+		String line = br.readLine();
+		int testcases = Integer.parseInt(line);
+		for (int kz = 0 ; kz < testcases ; kz++) {
+			line = br.readLine();
+			int n = Integer.parseInt(line);
+			int[] nums = new int[n];
+			line = br.readLine();
+			String[] split = line.split(" ");
+			for (int i = 0 ; i < n ; i++) {
+				nums[i] = Integer.parseInt(split[i]);
+			}
+			int counter = 0;
+			for (int i = n-1 ; i >0 ; i--) {
+				if (nums[i-1]>nums[i]) {
+					counter++;
+					int temp = nums[i-1];
+					nums[i-1] = nums[i];
+					nums[i] = temp;
+				}
+			}
+			pr.println("Case #"+(kz+1)+": "+counter);
+		}
+		
+		pr.close();
+	}
+}
