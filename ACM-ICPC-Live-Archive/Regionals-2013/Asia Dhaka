@@ -1,0 +1,47 @@
+
+//ACCEPTED BY JUDGE
+
+import java.io.*;
+import java.util.*;
+import java.math.*;
+import java.text.*;
+
+class Main {
+	public static void main(String[] args) throws Exception {
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		PrintWriter pr = new PrintWriter(new BufferedWriter(new OutputStreamWriter(System.out)));
+		String line = br.readLine();
+		int testcases = Integer.parseInt(line);
+		for (int kz = 1 ; kz <= testcases ; kz++) {
+			line = br.readLine();
+			String[] split = line.split(" ");
+			int x1 = Integer.parseInt(split[0]);
+			int y1 = Integer.parseInt(split[1]);
+			int x2 = Integer.parseInt(split[2]);
+			int y2 = Integer.parseInt(split[3]);
+			
+			int x11 = -y1;
+			int y11 = x1;
+			int x21 = -y2;
+			int y21 = x2;
+			
+			if (x11<x21) {
+				x21 -= x11;
+				x11 -= x11;
+			} else {
+				x11 -= x21;
+				x21 -= x21;
+			}
+			if (y11<y21) {
+				y21 -= y11;
+				y11 -= y11;
+			} else {
+				y11 -= y21;
+				y21 -= y21;
+			}
+			pr.println("Case "+kz+": "+x11+" "+y11+" "+x21+" "+y21);
+		}
+		
+		pr.close();
+	}
+}
