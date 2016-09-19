@@ -1,0 +1,66 @@
+import java.io.*;
+import java.util.*;
+import java.math.*;
+import java.text.*;
+
+class Main {
+	public static void main(String[] args) throws Exception {
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		PrintWriter pr = new PrintWriter(new BufferedWriter(new OutputStreamWriter(System.out)));
+		String line = br.readLine();
+		BigInteger inverse = new BigInteger("-1");
+		while (line!=null&&!line.isEmpty()) {
+			int n = Integer.parseInt(line);
+			int[] a = new int[n];
+			int[] b = new int[n];
+			for (int i = 0 ; i < n ; i++) {
+				line = br.readLine();
+				String[] split = line.split(" ");
+				a[i] = Integer.parseInt(split[1]);
+				b[i] = Integer.parseInt(split[2]);
+			}
+			int min = Integer.MAX_VALUE;
+			for (int i = 0 ; i < n ; i++) {
+				for (int j = i + 1 ; j < n ; j++) {
+					if (i!=j) {
+						int aa = 0;
+						int bb = 0;
+						if (b[i]<b[j]) {
+							bb = b[j]-b[i];
+							aa = a[i]-a[j];
+						} else {
+							bb = b[i]-b[j];
+							aa = a[j]-a[i];
+						}
+						int gcd = gcd(gcd(aa,bb),360);
+						aa = aa/gcd;
+						bb = bb/gcd;
+						//System.out.println("gcd: "+gcd);
+						//System.out.println("a: "+aa*gcd+"  aa: "+aa);
+						//System.out.println("b: "+ bb*gcd + "  bb: "+bb);
+						BigInteger bbb = new BigInteger(bb+"");
+						try {
+							int sol = (Integer.parseInt(bbb.modInverse(new BigInteger((360/gcd)+"")).toString())*aa+360)%(360/gcd);
+							if (sol<min) {
+								min = sol;
+							}
+						} catch (Exception e) {
+							
+						}
+					}
+				}
+			}
+			if (min==Integer.MAX_VALUE) {
+				pr.println("GIANIK IS NEVER ECLIPSED");
+			} else {
+				pr.println(min);
+			}
+			line = br.readLine();
+		}
+		
+		pr.close();
+	}
+	public static int gcd(int a , int b){
+		return b==0 ? a : gcd(b,a%b);
+	}
+}
