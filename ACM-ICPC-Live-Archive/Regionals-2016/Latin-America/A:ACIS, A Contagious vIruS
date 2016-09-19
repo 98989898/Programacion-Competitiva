@@ -1,0 +1,112 @@
+import java.io.*;
+import java.util.*;
+import java.math.*;
+import java.text.*;
+
+class acis {
+	  static final double EPS = 1e-9;
+
+	public static void main(String[] args) throws Exception {
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		PrintWriter pr = new PrintWriter(new BufferedWriter(new OutputStreamWriter(System.out)));
+		String line = br.readLine();
+		while (line!=null&&!line.isEmpty()&&!line.equals("*")) {
+			int n = Integer.parseInt(line);
+			line = br.readLine();
+			double min = Double.MAX_VALUE;
+			String[] split = line.split(" ");
+			point origin = new point(Integer.parseInt(split[0]),Integer.parseInt(split[1]));
+			line = br.readLine();
+			split = line.split(" ");
+			point first = new point(Integer.parseInt(split[0]),Integer.parseInt(split[1]));
+			point before = first;
+			double distance = dist(first, origin);
+			if (distance<min) {
+				min = distance;
+				//System.out.println(min);
+			}
+			for (int i = 1 ; i < n ; i++) {
+				line = br.readLine();
+				split = line.split(" ");
+				point cur = new point(Integer.parseInt(split[0]),Integer.parseInt(split[1]));
+				distance = dist(cur,origin);
+				if (distance<min) {
+					min = distance;
+					//System.out.println(min);
+				}
+				distance = distToLineSegment(origin, before,cur,new point());
+				if (distance<min) {
+					min = distance;
+					//System.out.println(min+ "bef:" +before.x+" "+before.y+"  cur: "+cur.x+" "+cur.y);
+				}
+				before = cur;
+			}
+			distance = distToLineSegment(origin, before,first,new point());
+			if (distance<min) {
+				min = distance;
+				//System.out.println(min+ "special");
+			}
+			DecimalFormat df = new DecimalFormat("#.000");
+			df.setRoundingMode(RoundingMode.HALF_UP);
+			pr.println(df.format(min));
+			
+			line = br.readLine();
+		}
+		
+		pr.close();
+	}
+	  static class point implements Comparable<point>{
+	    double x, y;                   // only used if more precision is needed
+	    point() { x = y = 0.0; }                         // default constructor
+	    point(double _x, double _y) { x = _x; y = _y; }         // user-defined
+	    // use EPS (1e-9) when testing equality of two floating points
+	    public int compareTo(point other) {      // override less than operator
+	      if (Math.abs(x - other.x) > EPS)                // useful for sorting
+	        return (int)Math.ceil(x - other.x);       // first: by x-coordinate
+	      else if (Math.abs(y - other.y) > EPS)
+	        return (int)Math.ceil(y - other.y);      // second: by y-coordinate
+	      else
+	        return 0; } };                               // they are equal
+	 // returns the distance from p to the line defined by
+	  // two points a and b (a and b must be different)
+	  // the closest point is stored in the 4th parameter
+	  static double distToLine(point p, point a, point b, point c) {
+	    // formula: c = a + u * ab
+	    vec ap = toVec(a, p), ab = toVec(a, b);
+	    double u = dot(ap, ab) / norm_sq(ab);
+	    c = translate(a, scale(ab, u));                     // translate a to c
+	    return dist(p, c); }              // Euclidean distance between p and c
+	 // returns the distance from p to the line segment ab defined by
+	  // two points a and b (still OK if a == b)
+	  // the closest point is stored in the 4th parameter
+	  static double distToLineSegment(point p, point a, point b, point c) {
+	    vec ap = toVec(a, p), ab = toVec(a, b);
+	    double u = dot(ap, ab) / norm_sq(ab);
+	    if (u < 0.0) { c = new point(a.x, a.y);                  // closer to a
+	      return dist(p, a); }            // Euclidean distance between p and a
+	    if (u > 1.0) { c = new point(b.x, b.y);                  // closer to b
+	      return dist(p, b); }            // Euclidean distance between p and b
+	    return distToLine(p, a, b, c); }             // run distToLine as above
+
+	static double dot(vec a, vec b) { return (a.x * b.x + a.y * b.y); }
+
+ 	static double norm_sq(vec v) { return v.x * v.x + v.y * v.y; }
+	 static point translate(point p, vec v) {           // translate p according to v
+	    return new point(p.x + v.x , p.y + v.y); }
+		 static vec scale(vec v, double s) {           // nonnegative s = [<1 .. 1 .. >1]
+		    return new vec(v.x * s, v.y * s); }              // shorter.same.longer
+
+
+
+	static class vec { double x, y;     // name: `vec' is different from Java Vector
+	    vec(double _x, double _y) { x = _x; y = _y; } };
+
+	  static vec toVec(point a, point b) {               // convert 2 points to vector
+	    return new vec(b.x - a.x, b.y - a.y); }
+	  static double dist(point p1, point p2) {                   // Euclidean distance
+	                      // Math.hypot(dx, dy) returns sqrt(dx * dx + dy * dy)
+	    return Math.hypot(p1.x - p2.x, p1.y - p2.y); }         // return double
+
+}
+
+
