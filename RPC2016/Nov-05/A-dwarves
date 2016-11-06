@@ -1,0 +1,106 @@
+
+//NOT ACCEPTED BY BOCA
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.io.PrintWriter;
+import java.util.Collections;
+import java.util.Hashtable;
+import java.util.Iterator;
+import java.util.Vector;
+
+
+class dwarves {
+
+
+    
+    static boolean cycle = false;
+    private static final int DFS_WHITE = -1;
+    private static final int DFS_BLACK = 1;
+    private static final int DFS_GRAY = 2;
+    private static Vector <Vector<Integer>> AdjList;
+    private static Vector<Integer> dfs_num;
+    
+    private static void initDFS(int V){
+        dfs_num = new Vector<Integer>();
+        dfs_num.addAll(Collections.nCopies(V,DFS_WHITE));
+    }
+    
+    static int total;
+    static Hashtable<String, Integer> pos = new Hashtable<>();
+    
+    public static void main(String[] args) throws IOException {
+        
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        PrintWriter pr = new PrintWriter(new OutputStreamWriter(System.out));
+        
+        
+        int N = Integer.parseInt(br.readLine());
+        AdjList = new Vector<>();
+        total=0;
+
+        while(N --> 0)
+        {
+            String linee = br.readLine();
+            //String[] ln = br.readLine().split(" ");
+            String [] ln = linee.split(">");
+            boolean less = true;
+            if (ln.length<2) {
+                ln = linee.split("<");
+                less = false;
+            }
+            int pos1 = getPos(ln[0].trim()), pos2 = getPos(ln[1].trim());
+            
+            if(less) AdjList.get(pos2).add(pos1);
+            else AdjList.get(pos1).add(pos2);
+        }
+        
+        cycle = false;
+
+        initDFS(total);
+        
+        for(int i = 0; i < AdjList.size() && !cycle; i++)
+        {
+            if(dfs_num.get(i) == DFS_WHITE){
+                dfs(i);
+            }
+
+        }
+        
+        String ans = cycle? "impossible":"possible";
+        pr.println(ans);
+        pr.close();
+        
+    }
+    
+    public static int getPos(String n)
+    {
+        if(!pos.containsKey(n)){ 
+            pos.put(n, total++);
+            AdjList.add(new Vector<>());
+        }
+        return pos.get(n);
+    }
+    
+    
+    private static void dfs(int u){
+        dfs_num.set(u, DFS_GRAY);
+        Iterator it = AdjList.get(u).iterator();
+        while(it.hasNext())
+        {
+            Integer v = (Integer) it.next();
+            if(dfs_num.get(v) == DFS_WHITE)
+            {
+                dfs(v);
+            }
+            else if(dfs_num.get(v) == DFS_GRAY)
+            {
+                cycle = true;
+            }
+        }
+        dfs_num.set(u,DFS_BLACK);
+    }
+    
+}
