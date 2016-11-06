@@ -1,0 +1,46 @@
+
+//ACCEPTED BY BOCA
+
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.io.PrintWriter;
+import java.math.BigInteger;
+
+class matrixcypher {
+
+    public static void main (String [] args) throws IOException{
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        PrintWriter pr = new PrintWriter(new BufferedWriter(new OutputStreamWriter(System.out)));
+        
+        String l1 = br.readLine();
+        String l2 = br.readLine();
+        String [] split1 = l1.split(" ");
+        String [] split2 = l2.split(" ");
+        BigInteger a = new BigInteger(split1[0]);
+        BigInteger b = new BigInteger(split1[1]);
+        BigInteger c = new BigInteger(split2[0]);
+        BigInteger d = new BigInteger(split2[1]);
+       
+        String ans = "";
+        
+        while (!(a.equals(BigInteger.ONE) && b.equals(BigInteger.ZERO) && c.equals(BigInteger.ZERO) && d.equals(BigInteger.ONE))){
+            int compare = a.add(b).compareTo(c.add(d));
+            if (compare > 0){ 
+                ans += "1";
+                a = a.subtract(c);
+                b = b.subtract(d);
+                
+            }else{
+                ans += "0";
+                c = c.subtract(a);
+                d = d.subtract(b);
+                
+            }
+        }
+        pr.println(ans);
+        pr.close();
+    }
+}
