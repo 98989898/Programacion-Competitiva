@@ -1,0 +1,84 @@
+
+//ACCEPTED BY UVA
+
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.io.PrintWriter;
+
+
+class sellingcpus {
+
+    static int[][] mm;
+    
+    static int M=0;
+    static int[][] prices;
+
+    public static void main(String[] args) throws IOException {
+        
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        PrintWriter pr = new PrintWriter(new BufferedWriter(new OutputStreamWriter(System.out)));
+        
+        String[] lns =  br.readLine().split(" ");
+        
+        int C = Integer.parseInt(lns[0]);
+        M = Integer.parseInt(lns[1]);
+        
+        prices = new int[C+1][M+1];
+        
+        for (int j = 1; j <= M; j++) {
+            
+            lns = br.readLine().split(" ");
+            for(int i = 1 ; i <= C ; i++)
+            {
+                prices[i][j] = Integer.parseInt(lns[i-1]);
+            }
+        }
+        
+        mm = new int[C+1][M+1];
+        for(int i = 0 ; i < mm.length; i++)
+        {
+            for(int j = 0 ; j < mm[0].length; j++)
+            {
+                mm[i][j]=-1;
+            }
+        }
+        pr.println(mm(C,1));
+        pr.close();
+        
+    }
+    
+    static int mm(int i, int j)
+    {
+        if(i <= 0 || j > M) return 0;
+        
+        if(mm[i][j] != -1) return mm[i][j];
+        
+        mm[i][j] = mm(i,j+1);
+        
+        for(int k = 1 ; k <= i ; k++ )
+        {
+            mm[i][j] = Math.max(mm[i][j], prices[k][j]+ mm(i-k,j+1));
+        }
+        return mm[i][j];
+    }
+}
+/*
+
+        for(int j = M ; j >= 1 ; j--)
+        {
+            for(int i = 1 ; i <= C ; i++)
+            {
+                mm[i][j] = mm[i][j+1];
+                
+                System.out.println(i + ","+j);
+                for(int k = 1 ; k <= i ; k++ )
+                {
+                    mm[i][j] = Math.max(mm[i][j], prices[k][j]+ mm[i-k][j+1]);
+                }
+            }
+        }
+
+*/
