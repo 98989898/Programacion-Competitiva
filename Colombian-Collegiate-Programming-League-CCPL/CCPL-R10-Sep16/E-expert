@@ -1,0 +1,56 @@
+
+//ACCEPTED BY BOCA
+
+import java.io.*;
+public class expert {
+	public static void main (String [] args) throws IOException{
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		PrintWriter pr = new PrintWriter(new BufferedWriter(new OutputStreamWriter(System.out)));
+		String line = br.readLine();
+		int T = Integer.parseInt(line);
+		for (int t=0; t<T; t++) {
+			
+			line = br.readLine();
+			int D = Integer.parseInt(line);
+			
+			String [] brands = new String [D];
+			int [] lows = new int [D];
+			int [] highs = new int [D];
+			
+			for (int d=0; d<D; d++) {
+				line = br.readLine();
+				String [] split = line.split(" ");
+				brands[d] = split[0];
+				lows[d] = Integer.parseInt(split[1]);
+				highs[d] = Integer.parseInt(split[2]);
+			}
+			line = br.readLine();
+			int queries = Integer.parseInt(line);
+			for (int i=0; i<queries; i++) {
+				int satisfied = 0;
+				String ans = "UNDETERMINED";
+				
+				line = br.readLine();
+				int q = Integer.parseInt(line);
+				for (int j=0; j<D; j++) {
+					if (q>=lows[j] && q<=highs[j]) {
+						satisfied++;
+						ans = brands[j];
+					}
+					
+				}
+				if (satisfied==1) {
+					pr.println(ans);
+				} else {
+					pr.println("UNDETERMINED");
+				}
+			}
+			if (t+1<T) {
+				pr.println();
+			} 
+			
+			
+		}
+		pr.close();
+	}
+}
