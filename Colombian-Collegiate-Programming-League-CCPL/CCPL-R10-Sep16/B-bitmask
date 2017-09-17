@@ -1,0 +1,85 @@
+
+//ACCEPTED BY BOCA
+
+
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.io.PrintWriter;
+
+public class bitmask {
+	public static void main(String[] args) throws Exception{
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		PrintWriter pr = new PrintWriter(new BufferedWriter(new OutputStreamWriter(System.out)));
+		String line = br.readLine();
+		String[] split ;
+		while (line!=null&&!line.isEmpty()) {
+			split = line.split(" ");
+			int n = Integer.parseUnsignedInt(split[0]);
+			int l = Integer.parseUnsignedInt(split[1]);
+			int u = Integer.parseUnsignedInt(split[2]);
+			//start from 31
+			boolean istight = true;
+			boolean isuntight = true;
+			long i=31;
+			int sol = Integer.parseUnsignedInt("0");
+			while(((1<<i)&u)==0) {
+				i--;
+			}
+			
+			
+			for (; i >=0 ; i--) {
+				if (istight&&isuntight) {
+					if ((((1<<i)&u)==0)) {
+						//obliga a ser 0
+					} else if ((((1<<i)&l)!=0)) {
+						//obliga a ser 1
+						sol |= (1<<i);
+					} else if ((((1<<i)&n)==0)) {
+						//somos 1
+						sol |= (1<<i);
+						if ((((1<<i)&l)==0)) {
+							isuntight = false;
+						}
+					} else {
+						//somos 0
+						if ((((1<<i)&u)!=0)) {
+							istight = false;
+						}
+					}
+				} else if((!istight)&&isuntight) {
+					if ((((1<<i)&l)!=0)) {
+							sol |= (1<<i);
+					} else {
+						if ((((1<<i)&n)==0)) {
+							sol |= (1<<i);
+							isuntight = false;
+						}
+					}
+				} else if (istight&&(!isuntight)) {
+					if ((((1<<i)&u)!=0)) {
+						if ((((1<<i)&n)==0)) {
+							sol |= (1<<i);
+						} else {
+							istight = false;
+						}
+					}
+				} else {
+					if ((((1<<i)&n)==0)) {
+						sol |= ((1<<i));
+					}
+				}
+			}
+			
+
+		
+		
+			pr.println(Integer.toUnsignedString(sol));
+			
+			line = br.readLine();
+		}
+		pr.close();
+	}
+
+}
