@@ -1,0 +1,36 @@
+
+//ACCEPTED BY UVA
+
+import java.io.*;
+import java.util.*;
+import java.math.*;
+import java.text.*;
+
+class Main {
+	public static void main(String[] args) throws Exception {
+		PrintWriter pr = new PrintWriter(new BufferedWriter(new OutputStreamWriter(System.out)));
+		Scanner scn = new Scanner(System.in);
+		int testcases = scn.nextInt();
+		String[] split;
+		for (int kz = 0 ; kz < testcases ; kz++) {
+			int length = scn.nextInt();
+			int ants = scn.nextInt();
+			int min = 0;
+			int max = 0;
+			for (int i = 0 ; i < ants ; i++) {
+				int curr = scn.nextInt();
+				int cmin = Math.min(curr,length-curr);
+				int cmax = Math.max(curr,length-curr);
+				if (cmin>min) {
+					min = cmin;
+				}
+				if (cmax>max) {
+					max = cmax;
+				}
+			}
+			pr.println(min+" "+max);
+		}
+		
+		pr.close();
+	}
+}
