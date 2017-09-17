@@ -1,0 +1,39 @@
+
+//ACCEPTED BY UVA
+
+import java.io.*;
+import java.util.*;
+import java.math.*;
+import java.text.*;
+
+class Main {
+	public static void main(String[] args) throws Exception {
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		PrintWriter pr = new PrintWriter(new BufferedWriter(new OutputStreamWriter(System.out)));
+		String line = br.readLine();
+		String[] split;
+		while (!line.equals("0")) {
+			int rows = Integer.parseInt(line);
+			split = br.readLine().split(" ");
+			int row =  Integer.parseInt(split[0]);
+			int column = (Integer.parseInt(split[1])-1)%(rows+1);
+			int[][] nums = new int[column+1][rows];
+			split = br.readLine().split(" ");
+			for (int j = 0 ; j < rows ; j++) {
+				nums[0][j] = Integer.parseInt(split[j]);
+			}
+			for (int i = 1; i <= column  ; i++) {
+				nums[i][0] = 1;
+				for (int j = 1 ; j < rows-1 ; j++) {
+					nums[i][j] = (nums[i][j-1]*nums[i-1][j+1]+1)/nums[i-1][j];
+				}
+				nums[i][rows-1] = 1;
+			}
+			pr.println(nums[column][row-1]);
+			
+			line = br.readLine();
+		}
+		
+		pr.close();
+	}
+}
