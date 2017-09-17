@@ -1,0 +1,47 @@
+
+//ACCEPTED BY BOTH UVA /AND BOCA FOR CCPL SEP-16-2017
+
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.io.PrintWriter;
+
+class Main {
+	public static void main(String[] args) throws Exception{
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		PrintWriter pr = new PrintWriter(new BufferedWriter(new OutputStreamWriter(System.out)));
+		String line = br.readLine().trim();
+		String[] split;
+		while(!line.equals("0")) {
+			split = line.split(" ");
+			int[] nums = new int[split.length-1];
+			for (int i = 0; i < split.length -1; i++) {
+				nums[i] = Integer.parseInt(split[i]);
+			}
+			int[] purified = new int[nums.length-1];
+			for (int i = 0; i < purified.length; i++) {
+				purified[i] = nums[i+1]-nums[i];
+			}
+			
+			int sol=purified[0];
+			for(int i = 1 ;i< purified.length; i++) {
+				sol = gcd(sol,purified[i]);
+			}
+			
+			if (sol<0) {
+				sol = -sol;
+			}
+			pr.println(sol);
+			line = br.readLine().trim();
+			
+			
+		}
+			pr.close();
+
+	}
+	static int gcd(int a, int b) {
+		return b==0 ? a: gcd(b,a%b);
+	}
+
+}
